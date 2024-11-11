@@ -1,6 +1,6 @@
 <script>
 
-  import Navbar from "./routes/Navbar.svelte";
+  import Navbar from "./lib/Navbar.svelte";
   let currentPage = 'home';
 
 </script>

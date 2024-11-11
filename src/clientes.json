@@ -1,0 +1,502 @@
+[
+    {
+      "id": 1,
+      "nombre": "Olga",
+      "apellidos": "Acosta",
+      "email": "andres.gomez1@example.com",
+      "telefono": "654-562-3689",
+      "ciudad": "Palma",
+      "num_compras_ultimo_anio": 24,
+      "amount_ultimo_anio": 1874.01
+    },
+    {
+      "id": 2,
+      "nombre": "Elena",
+      "apellidos": "Herrera",
+      "email": "beatriz.lopez2@example.com",
+      "telefono": "686-769-9941",
+      "ciudad": "Valladolid",
+      "num_compras_ultimo_anio": 11,
+      "amount_ultimo_anio": 1696.75
+    },
+    {
+      "id": 3,
+      "nombre": "Marta",
+      "apellidos": "Navarro",
+      "email": "carlos.martinez3@example.com",
+      "telefono": "634-437-2720",
+      "ciudad": "Valladolid",
+      "num_compras_ultimo_anio": 7,
+      "amount_ultimo_anio": 1074.66
+    },
+    {
+      "id": 4,
+      "nombre": "Juana",
+      "apellidos": "Silva",
+      "email": "daniela.hernandez4@example.com",
+      "telefono": "652-570-9153",
+      "ciudad": "Gij\u00f3n",
+      "num_compras_ultimo_anio": 17,
+      "amount_ultimo_anio": 1678.61
+    },
+    {
+      "id": 5,
+      "nombre": "Karla",
+      "apellidos": "Valdes",
+      "email": "eduardo.diaz5@example.com",
+      "telefono": "659-559-6959",
+      "ciudad": "Castell\u00f3n",
+      "num_compras_ultimo_anio": 10,
+      "amount_ultimo_anio": 636.56
+    },
+    {
+      "id": 6,
+      "nombre": "Daniela",
+      "apellidos": "Martinez",
+      "email": "fabiola.ramirez6@example.com",
+      "telefono": "656-290-7289",
+      "ciudad": "C\u00f3rdoba",
+      "num_compras_ultimo_anio": 23,
+      "amount_ultimo_anio": 2296.71
+    },
+    {
+      "id": 7,
+      "nombre": "Ulises",
+      "apellidos": "Ponce",
+      "email": "gonzalo.vargas7@example.com",
+      "telefono": "605-923-3022",
+      "ciudad": "Santander",
+      "num_compras_ultimo_anio": 17,
+      "amount_ultimo_anio": 551.4
+    },
+    {
+      "id": 8,
+      "nombre": "Olga",
+      "apellidos": "Vargas",
+      "email": "helena.jimenez8@example.com",
+      "telefono": "666-724-5036",
+      "ciudad": "Almer\u00eda",
+      "num_compras_ultimo_anio": 12,
+      "amount_ultimo_anio": 2318.35
+    },
+    {
+      "id": 9,
+      "nombre": "Zoe",
+      "apellidos": "Ponce",
+      "email": "ivan.santos9@example.com",
+      "telefono": "696-246-9521",
+      "ciudad": "Badalona",
+      "num_compras_ultimo_anio": 17,
+      "amount_ultimo_anio": 2397.87
+    },
+    {
+      "id": 10,
+      "nombre": "Salvador",
+      "apellidos": "Diaz",
+      "email": "juana.ortiz10@example.com",
+      "telefono": "646-314-9322",
+      "ciudad": "Almer\u00eda",
+      "num_compras_ultimo_anio": 19,
+      "amount_ultimo_anio": 664.91
+    },
+    {
+      "id": 11,
+      "nombre": "Gloria",
+      "apellidos": "Herrera",
+      "email": "karla.romero11@example.com",
+      "telefono": "699-405-3205",
+      "ciudad": "Madrid",
+      "num_compras_ultimo_anio": 25,
+      "amount_ultimo_anio": 1416.14
+    },
+    {
+      "id": 12,
+      "nombre": "Karla",
+      "apellidos": "Morales",
+      "email": "luis.silva12@example.com",
+      "telefono": "607-438-8851",
+      "ciudad": "Madrid",
+      "num_compras_ultimo_anio": 9,
+      "amount_ultimo_anio": 2201.09
+    },
+    {
+      "id": 13,
+      "nombre": "Berta",
+      "apellidos": "Jimenez",
+      "email": "marta.torres13@example.com",
+      "telefono": "662-478-1787",
+      "ciudad": "Vigo",
+      "num_compras_ultimo_anio": 16,
+      "amount_ultimo_anio": 1415.2
+    },
+    {
+      "id": 14,
+      "nombre": "Jorge",
+      "apellidos": "Mendoza",
+      "email": "nestor.ruiz14@example.com",
+      "telefono": "697-191-1868",
+      "ciudad": "Almer\u00eda",
+      "num_compras_ultimo_anio": 17,
+      "amount_ultimo_anio": 792.46
+    },
+    {
+      "id": 15,
+      "nombre": "Zoe",
+      "apellidos": "Acosta",
+      "email": "olga.flores15@example.com",
+      "telefono": "628-352-1587",
+      "ciudad": "Almer\u00eda",
+      "num_compras_ultimo_anio": 12,
+      "amount_ultimo_anio": 1578.43
+    },
+    {
+      "id": 16,
+      "nombre": "Damian",
+      "apellidos": "Silva",
+      "email": "pablo.acosta16@example.com",
+      "telefono": "699-438-5225",
+      "ciudad": "Castell\u00f3n",
+      "num_compras_ultimo_anio": 6,
+      "amount_ultimo_anio": 2237.75
+    },
+    {
+      "id": 17,
+      "nombre": "Eduardo",
+      "apellidos": "Torres",
+      "email": "rocio.castro17@example.com",
+      "telefono": "633-539-7064",
+      "ciudad": "Palma",
+      "num_compras_ultimo_anio": 13,
+      "amount_ultimo_anio": 1458.47
+    },
+    {
+      "id": 18,
+      "nombre": "Jorge",
+      "apellidos": "Navarro",
+      "email": "salvador.delgado18@example.com",
+      "telefono": "644-747-1022",
+      "ciudad": "Zaragoza",
+      "num_compras_ultimo_anio": 16,
+      "amount_ultimo_anio": 871.13
+    },
+    {
+      "id": 19,
+      "nombre": "Valeria",
+      "apellidos": "Ortiz",
+      "email": "tatiana.morales19@example.com",
+      "telefono": "665-835-6873",
+      "ciudad": "Madrid",
+      "num_compras_ultimo_anio": 19,
+      "amount_ultimo_anio": 923.86
+    },
+    {
+      "id": 20,
+      "nombre": "Yago",
+      "apellidos": "Santos",
+      "email": "ulises.navarro20@example.com",
+      "telefono": "691-461-8796",
+      "ciudad": "M\u00e1laga",
+      "num_compras_ultimo_anio": 14,
+      "amount_ultimo_anio": 1381.77
+    },
+    {
+      "id": 21,
+      "nombre": "Marta",
+      "apellidos": "Hernandez",
+      "email": "valeria.rojas21@example.com",
+      "telefono": "616-394-4800",
+      "ciudad": "M\u00e1laga",
+      "num_compras_ultimo_anio": 9,
+      "amount_ultimo_anio": 566.66
+    },
+    {
+      "id": 22,
+      "nombre": "Andres",
+      "apellidos": "Martinez",
+      "email": "ximena.vega22@example.com",
+      "telefono": "622-867-8874",
+      "ciudad": "Palma",
+      "num_compras_ultimo_anio": 24,
+      "amount_ultimo_anio": 524.8
+    },
+    {
+      "id": 23,
+      "nombre": "Berta",
+      "apellidos": "Morales",
+      "email": "yago.campos23@example.com",
+      "telefono": "695-755-8604",
+      "ciudad": "Bilbao",
+      "num_compras_ultimo_anio": 19,
+      "amount_ultimo_anio": 1597.37
+    },
+    {
+      "id": 24,
+      "nombre": "Patricia",
+      "apellidos": "Lopez",
+      "email": "zoe.herrera24@example.com",
+      "telefono": "680-347-5504",
+      "ciudad": "Murcia",
+      "num_compras_ultimo_anio": 25,
+      "amount_ultimo_anio": 1027.81
+    },
+    {
+      "id": 25,
+      "nombre": "Rocio",
+      "apellidos": "Santos",
+      "email": "aitor.mendoza25@example.com",
+      "telefono": "613-291-5236",
+      "ciudad": "Castell\u00f3n",
+      "num_compras_ultimo_anio": 14,
+      "amount_ultimo_anio": 1730.96
+    },
+    {
+      "id": 26,
+      "nombre": "Juana",
+      "apellidos": "Mendoza",
+      "email": "berta.ponce26@example.com",
+      "telefono": "648-240-7398",
+      "ciudad": "Las Palmas",
+      "num_compras_ultimo_anio": 6,
+      "amount_ultimo_anio": 1428.55
+    },
+    {
+      "id": 27,
+      "nombre": "Ulises",
+      "apellidos": "Delgado",
+      "email": "cecilia.reyes27@example.com",
+      "telefono": "623-159-6754",
+      "ciudad": "Valladolid",
+      "num_compras_ultimo_anio": 17,
+      "amount_ultimo_anio": 1477.23
+    },
+    {
+      "id": 28,
+      "nombre": "Cecilia",
+      "apellidos": "Morales",
+      "email": "damian.serrano28@example.com",
+      "telefono": "697-573-3099",
+      "ciudad": "Gij\u00f3n",
+      "num_compras_ultimo_anio": 20,
+      "amount_ultimo_anio": 2472.34
+    },
+    {
+      "id": 29,
+      "nombre": "Elena",
+      "apellidos": "Navarro",
+      "email": "elena.valdes29@example.com",
+      "telefono": "672-196-6569",
+      "ciudad": "Valencia",
+      "num_compras_ultimo_anio": 21,
+      "amount_ultimo_anio": 1223.02
+    },
+    {
+      "id": 30,
+      "nombre": "Daniela",
+      "apellidos": "Torres",
+      "email": "fernando.zavala30@example.com",
+      "telefono": "671-697-3607",
+      "ciudad": "Barcelona",
+      "num_compras_ultimo_anio": 13,
+      "amount_ultimo_anio": 1638.66
+    },
+    {
+      "id": 31,
+      "nombre": "Fernando",
+      "apellidos": "Lopez",
+      "email": "gloria.gomez31@example.com",
+      "telefono": "696-750-5626",
+      "ciudad": "Vigo",
+      "num_compras_ultimo_anio": 20,
+      "amount_ultimo_anio": 2156.99
+    },
+    {
+      "id": 32,
+      "nombre": "Berta",
+      "apellidos": "Reyes",
+      "email": "hugo.lopez32@example.com",
+      "telefono": "643-496-3618",
+      "ciudad": "Castell\u00f3n",
+      "num_compras_ultimo_anio": 19,
+      "amount_ultimo_anio": 576.51
+    },
+    {
+      "id": 33,
+      "nombre": "Elena",
+      "apellidos": "Hernandez",
+      "email": "ines.martinez33@example.com",
+      "telefono": "629-173-3459",
+      "ciudad": "Madrid",
+      "num_compras_ultimo_anio": 6,
+      "amount_ultimo_anio": 2483.65
+    },
+    {
+      "id": 34,
+      "nombre": "Daniela",
+      "apellidos": "Herrera",
+      "email": "jorge.hernandez34@example.com",
+      "telefono": "634-443-1852",
+      "ciudad": "Bilbao",
+      "num_compras_ultimo_anio": 18,
+      "amount_ultimo_anio": 1262.8
+    },
+    {
+      "id": 35,
+      "nombre": "Helena",
+      "apellidos": "Vega",
+      "email": "laura.diaz35@example.com",
+      "telefono": "663-436-6621",
+      "ciudad": "Murcia",
+      "num_compras_ultimo_anio": 5,
+      "amount_ultimo_anio": 1559.47
+    },
+    {
+      "id": 36,
+      "nombre": "Helena",
+      "apellidos": "Romero",
+      "email": "manuel.ramirez36@example.com",
+      "telefono": "682-365-8136",
+      "ciudad": "Valladolid",
+      "num_compras_ultimo_anio": 11,
+      "amount_ultimo_anio": 1174.56
+    },
+    {
+      "id": 37,
+      "nombre": "Berta",
+      "apellidos": "Rojas",
+      "email": "natalia.vargas37@example.com",
+      "telefono": "633-176-4854",
+      "ciudad": "Barcelona",
+      "num_compras_ultimo_anio": 23,
+      "amount_ultimo_anio": 1381.11
+    },
+    {
+      "id": 38,
+      "nombre": "Zoe",
+      "apellidos": "Diaz",
+      "email": "oscar.jimenez38@example.com",
+      "telefono": "615-267-5211",
+      "ciudad": "M\u00e1laga",
+      "num_compras_ultimo_anio": 11,
+      "amount_ultimo_anio": 1179.7
+    },
+    {
+      "id": 39,
+      "nombre": "Natalia",
+      "apellidos": "Martinez",
+      "email": "patricia.santos39@example.com",
+      "telefono": "688-858-9082",
+      "ciudad": "Las Palmas",
+      "num_compras_ultimo_anio": 8,
+      "amount_ultimo_anio": 2426.7
+    },
+    {
+      "id": 40,
+      "nombre": "Salvador",
+      "apellidos": "Ruiz",
+      "email": "andres.ortiz40@example.com",
+      "telefono": "685-259-3826",
+      "ciudad": "Alicante",
+      "num_compras_ultimo_anio": 9,
+      "amount_ultimo_anio": 1215.78
+    },
+    {
+      "id": 41,
+      "nombre": "Ulises",
+      "apellidos": "Ponce",
+      "email": "beatriz.romero41@example.com",
+      "telefono": "669-777-9665",
+      "ciudad": "Alicante",
+      "num_compras_ultimo_anio": 19,
+      "amount_ultimo_anio": 1325.95
+    },
+    {
+      "id": 42,
+      "nombre": "Gloria",
+      "apellidos": "Romero",
+      "email": "carlos.silva42@example.com",
+      "telefono": "603-827-6053",
+      "ciudad": "Bilbao",
+      "num_compras_ultimo_anio": 13,
+      "amount_ultimo_anio": 1801.0
+    },
+    {
+      "id": 43,
+      "nombre": "Ximena",
+      "apellidos": "Ramirez",
+      "email": "daniela.torres43@example.com",
+      "telefono": "674-632-3651",
+      "ciudad": "Valladolid",
+      "num_compras_ultimo_anio": 19,
+      "amount_ultimo_anio": 1317.21
+    },
+    {
+      "id": 44,
+      "nombre": "Oscar",
+      "apellidos": "Lopez",
+      "email": "eduardo.ruiz44@example.com",
+      "telefono": "677-181-6891",
+      "ciudad": "M\u00e1laga",
+      "num_compras_ultimo_anio": 21,
+      "amount_ultimo_anio": 971.68
+    },
+    {
+      "id": 45,
+      "nombre": "Pablo",
+      "apellidos": "Diaz",
+      "email": "fabiola.flores45@example.com",
+      "telefono": "653-747-2506",
+      "ciudad": "Alicante",
+      "num_compras_ultimo_anio": 19,
+      "amount_ultimo_anio": 2216.92
+    },
+    {
+      "id": 46,
+      "nombre": "Damian",
+      "apellidos": "Jimenez",
+      "email": "gonzalo.acosta46@example.com",
+      "telefono": "662-595-2685",
+      "ciudad": "Bilbao",
+      "num_compras_ultimo_anio": 8,
+      "amount_ultimo_anio": 2340.01
+    },
+    {
+      "id": 47,
+      "nombre": "Andres",
+      "apellidos": "Vargas",
+      "email": "helena.castro47@example.com",
+      "telefono": "634-384-3991",
+      "ciudad": "Granada",
+      "num_compras_ultimo_anio": 8,
+      "amount_ultimo_anio": 963.27
+    },
+    {
+      "id": 48,
+      "nombre": "Cecilia",
+      "apellidos": "Acosta",
+      "email": "ivan.delgado48@example.com",
+      "telefono": "626-573-6758",
+      "ciudad": "C\u00f3rdoba",
+      "num_compras_ultimo_anio": 19,
+      "amount_ultimo_anio": 1930.21
+    },
+    {
+      "id": 49,
+      "nombre": "Juana",
+      "apellidos": "Torres",
+      "email": "juana.morales49@example.com",
+      "telefono": "630-573-7237",
+      "ciudad": "Vigo",
+      "num_compras_ultimo_anio": 15,
+      "amount_ultimo_anio": 1505.26
+    },
+    {
+      "id": 50,
+      "nombre": "Hugo",
+      "apellidos": "Mendoza",
+      "email": "karla.navarro50@example.com",
+      "telefono": "683-877-1168",
+      "ciudad": "Las Palmas",
+      "num_compras_ultimo_anio": 8,
+      "amount_ultimo_anio": 2061.23
+    }
+  ]
