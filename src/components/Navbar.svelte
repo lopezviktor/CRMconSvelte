@@ -1,19 +1,20 @@
 <script>
-    export let currentPage = 'home';
+  export let currentPage = 'home';
+  import { Link } from 'svelte-routing';
 </script>
 
 <nav>
-    <ul>
-        <li class="{currentPage === 'home' ? 'active' : ''}">
-        <a href="#home">Home</a>
-        </li>
-        <li class="{currentPage === 'sales' ? 'active' : ''}">
-        <a href="#sales">Ventas</a>
-        </li>
-        <li class="{currentPage === 'customers' ? 'active' : ''}">
-        <a href="#customers">Clientes</a>
-        </li>
-    </ul>
+  <ul>
+      <li class="{currentPage === 'home' ? 'active' : ''}">
+          <Link to="/">Home</Link>
+      </li>
+      <li class="{currentPage === 'sales' ? 'active' : ''}">
+          <Link to="/ventas">Ventas</Link>
+      </li>
+      <li class="{currentPage === 'customers' ? 'active' : ''}">
+          <Link to="/clientes">Clientes</Link>
+      </li>
+  </ul>
 </nav>
 
 <style>
@@ -43,7 +44,7 @@
       transition: background-color 0.8s;
     }
     
-    nav ul li a {
+    nav ul li :global(a) {
       color: white;
       font-size: 1.2rem;
       text-decoration: none;
