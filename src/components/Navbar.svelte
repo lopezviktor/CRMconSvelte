@@ -14,6 +14,9 @@
       <li class="{currentPage === 'customers' ? 'active' : ''}">
           <Link to="/clientes">Clientes</Link>
       </li>
+      <li class="{currentPage === 'gestion-clientes' ? 'active' : ''}">
+        <Link to="/gestion-clientes">Gestión Clientes</Link>
+      </li>
   </ul>
 </nav>
 

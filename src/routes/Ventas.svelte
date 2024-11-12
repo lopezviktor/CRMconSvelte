@@ -28,7 +28,7 @@
     });
 </script>
 
-<h2>Historial de Ventas</h2>
+<h2>Lista de Ventas</h2>
 
 <div class="ventas-container">
     {#each $ventas as venta}
@@ -51,6 +51,11 @@
 </div>
 
 <style>
+    h2 {
+        text-align: center;
+        color: #1A73E8;
+        margin-bottom: 1.5rem;
+    }
     .ventas-container {
         display: flex;
         flex-wrap: wrap;
