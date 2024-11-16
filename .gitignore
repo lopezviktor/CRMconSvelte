@@ -1,24 +1,17 @@
-# Logs
-logs
+# Ignorar dependencias del backend y frontend
+backend/node_modules/
+CRMsvelte/node_modules/
+
+# Ignorar variables de entorno
+backend/.env
+CRMsvelte/.env
+
+# Ignorar archivos de construcción del frontend
+CRMsvelte/dist/
+
+# Ignorar logs
 *.log
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-pnpm-debug.log*
-lerna-debug.log*
 
-node_modules
-dist
-dist-ssr
-*.local
-
-# Editor directories and files
-.vscode/*
-!.vscode/extensions.json
-.idea
+# Ignorar configuraciones específicas del sistema
 .DS_Store
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
-*.sw?
+.vscode/

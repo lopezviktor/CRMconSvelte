@@ -25,8 +25,8 @@
 
 <style>
   main {
-    margin: 2rem 0; /* Márgenes superior e inferior */
-    padding: 1rem;  /* Espaciado interno */
-    min-height: calc(100vh - 10rem); /* Altura mínima para evitar que el contenido sea demasiado pequeño */
+    margin: 2rem 0; 
+    padding: 1rem; 
+    min-height: calc(100vh - 10rem); 
   }
 </style>
