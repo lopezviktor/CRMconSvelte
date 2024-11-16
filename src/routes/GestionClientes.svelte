@@ -1,4 +1,5 @@
 <script>
+    import { onMount } from "svelte";
     import { writable } from "svelte/store";
 
     // VARIABLES PARA ALMACENAR LA LISTA DE CLIENTES Y VENTAS

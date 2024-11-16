@@ -1,8 +1,10 @@
 <script>
     import { onMount } from 'svelte';
     import { writable } from 'svelte/store';
+    import { Link } from 'svelte-routing';
 
     let clientes = writable([]);
+    
     let filtroNombre = '';
     let filtroCiudad = '';
     let filtroCompras = '';
@@ -10,9 +12,9 @@
 
     onMount(async () => {
         try {
-            const respuesta = await fetch('/data/clientes.json');
+            const respuesta = await fetch('http://localhost:3000/api/clientes');
             if (!respuesta.ok) {
-                throw new Error("Error al cargar el archivo JSON");
+                throw new Error("Error al cargar los clientes");
             }
             const data = await respuesta.json();
             clientes.set(data);
@@ -32,7 +34,9 @@
 </script>
 
 <h2>Lista de Clientes</h2>
-
+<Link to="/addCliente">
+    <button>Nuevo cliente</button>
+</Link>
 <form class="filter-form">
     <label>
         Nombre:
@@ -47,28 +51,54 @@
         <input type="text" bind:value={filtroCompras} placeholder="Filtrar por nº de compras" />
     </label>
     <label>
-        Amount de compras:
-        <input type="text" bind:value={filtroMonto} placeholder="Filtrar por monto de compras" />
+        Monto total:
+        <input type="text" bind:value={filtroMonto} placeholder="Filtrar por monto total" />
     </label>
 </form>
 
-<div class="clientes-container">
-    {#each clientesFiltrados as cliente}
-        <div class="cliente-card">
-            <h3>{cliente.nombre} {cliente.apellidos}</h3>
-            <p><strong>Ciudad:</strong> {cliente.ciudad}</p>
-            <p><strong>Compras:</strong> {cliente.num_compras_ultimo_anio}</p>
-            <p><strong>Monto total:</strong> {cliente.amount_ultimo_anio}€</p>
-        </div>
-    {/each}
-</div>
+<table class="clientes-table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Ciudad</th>
+            <th>Compras</th>
+            <th>Monto Total</th>
+        </tr>
+    </thead>
+    <tbody>
+        {#each clientesFiltrados as cliente}
+            <tr>
+                <td>{cliente.idCliente}</td>
+                <td>{cliente.nombre} {cliente.apellidos}</td>
+                <td>{cliente.ciudad}</td>
+                <td>{cliente.num_compras_ultimo_anio}</td>
+                <td>{cliente.amount_ultimo_anio}€</td>
+            </tr>
+        {/each}
+    </tbody>
+</table>
 
 <style>
-    /* Estilos generales */
     h2 {
         text-align: center;
         color: #1A73E8;
         margin-bottom: 1.5rem;
+    }
+
+    button {
+        background-color: #1A73E8;
+        color: white;
+        font-size: 1rem;
+        padding: 0.5rem 1rem;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        margin-bottom: 1rem;
+    }
+
+    button:hover {
+        background-color: #155ab2;
     }
 
     .filter-form {
@@ -101,43 +131,30 @@
         box-shadow: 0 0 0 2px rgba(26, 115, 232, 0.2);
     }
 
-    /* Estilos de la lista de clientes */
-    .clientes-container {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 1rem;
-        justify-content: center;
-    }
-
-    .cliente-card {
-        background-color: #f5faff;
-        border: 1px solid #e0e0e0;
-        border-radius: 10px;
-        padding: 1.5rem;
-        width: 280px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        transition: transform 0.2s, box-shadow 0.2s;
-    }
-
-    .cliente-card:hover {
-        transform: translateY(-4px);
-        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-    }
-
-    .cliente-card h3 {
-        margin-top: 0;
-        font-size: 1.3rem;
-        color: #1A73E8;
-        margin-bottom: 0.5rem;
-    }
-
-    .cliente-card p {
-        margin: 0.3rem 0;
+    .clientes-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 0 auto;
         font-size: 0.9rem;
-        color: #555;
+        text-align: center;
     }
 
-    .cliente-card p strong {
-        color: #333;
+    .clientes-table thead {
+        background-color: #1A73E8;
+        color: white;
+    }
+
+    .clientes-table th,
+    .clientes-table td {
+        border: 1px solid #ddd;
+        padding: 0.8rem;
+    }
+
+    .clientes-table tbody tr:nth-child(even) {
+        background-color: #f0f7ff;
+    }
+
+    .clientes-table tbody tr:hover {
+        background-color: #e0eaff;
     }
 </style>

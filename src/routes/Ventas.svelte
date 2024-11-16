@@ -7,25 +7,24 @@
 
     // Cargar datos desde ventas.json y clientes.json
     onMount(async () => {
-        try {
-            // CARGAR CLIENTES
-            const respuestaClientes = await fetch('/data/clientes.json');
-            const dataClientes = await respuestaClientes.json();
+    try {
+        const respuestaClientes = await fetch('http://localhost:3000/api/clientes');
+        const dataClientes = await respuestaClientes.json();
 
-            const clientesMap = {};
-            dataClientes.forEach(cliente => {
-                clientesMap[cliente.id] = cliente;
-            });
-            clientes.set(clientesMap);
-            
-            // CARGAR VENTAS
-            const respuestaVentas = await fetch('/data/ventas.json');
-            const dataVentas = await respuestaVentas.json();
-            ventas.set(dataVentas);
-        } catch (error) {
-            console.log("Error al cargar los datos: ", error)
-        }
-    });
+        // Transformar la lista de clientes en un objeto con idCliente como clave
+        const clientesMap = {};
+        dataClientes.forEach(cliente => {
+            clientesMap[cliente.idCliente] = cliente;
+        });
+        clientes.set(clientesMap);
+
+        const respuestaVentas = await fetch('http://localhost:3000/api/ventas');
+        const dataVentas = await respuestaVentas.json();
+        ventas.set(dataVentas);
+    } catch (error) {
+        console.error("Error al cargar los datos:", error);
+    }
+});
 </script>
 
 <h2>Lista de Ventas</h2>
@@ -39,7 +38,7 @@
             <ul class="productos-list">
                 {#each venta.productos as producto}
                     <li>
-                        <strong>{producto.producto}:</strong> {producto.cantidad} unidades - Subtotal: {producto.subtotal}€
+                        <strong>{producto.nombre}:</strong> {producto.cantidad} unidades - Subtotal: {producto.subtotal}€
                     </li>
                 {/each}
             </ul>

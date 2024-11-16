@@ -1,22 +1,22 @@
 <script>
-  export let currentPage = 'home';
+  export let currentPath = '/';
   import { Link } from 'svelte-routing';
 </script>
 
 <nav>
   <ul>
-      <li class="{currentPage === 'home' ? 'active' : ''}">
-          <Link to="/">Home</Link>
-      </li>
-      <li class="{currentPage === 'sales' ? 'active' : ''}">
-          <Link to="/ventas">Ventas</Link>
-      </li>
-      <li class="{currentPage === 'customers' ? 'active' : ''}">
-          <Link to="/clientes">Clientes</Link>
-      </li>
-      <li class="{currentPage === 'gestion-clientes' ? 'active' : ''}">
-        <Link to="/gestion-clientes">Gestión Clientes</Link>
-      </li>
+    <li class="{currentPath === '/' ? 'active' : ''}">
+      <Link to="/">Home</Link>
+    </li>
+    <li class="{currentPath === '/ventas' ? 'active' : ''}">
+      <Link to="/ventas">Ventas</Link>
+    </li>
+    <li class="{currentPath === '/clientes' ? 'active' : ''}">
+      <Link to="/clientes">Clientes</Link>
+    </li>
+    <li class="{currentPath === '/gestion-clientes' ? 'active' : ''}">
+      <Link to="/gestion-clientes">Gestión Clientes</Link>
+    </li>
   </ul>
 </nav>
 
@@ -59,7 +59,4 @@
       background-color: #004e9d;
     }
     
-    .active {
-      background-color: #004e9d;
-    }
 </style>
