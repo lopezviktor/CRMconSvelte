@@ -1,5 +1,8 @@
 {
   "dependencies": {
     "svelte-routing": "^2.13.0"
+  },
+  "devDependencies": {
+    "vite": "^5.4.11"
   }
 }

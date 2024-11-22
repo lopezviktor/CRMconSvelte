@@ -10,11 +10,11 @@
   },
   "devDependencies": {
     "@sveltejs/vite-plugin-svelte": "^4.0.1",
-    "@tsconfig/svelte": "^5.0.4",
     "svelte": "^5.2.2",
     "vite": "^5.4.10"
   },
   "dependencies": {
+    "deepmerge": "^4.3.1",
     "svelte-routing": "^2.13.0"
   }
 }
