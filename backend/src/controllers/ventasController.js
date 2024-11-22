@@ -1,18 +1,33 @@
 const db = require('../../db');
 
-// Obtener todas las ventas
+// Obtener todas las ventas con detalles
 const getVentas = async (req, res) => {
     try {
-        const [rows] = await db.query(`
-            SELECT v.idVenta, v.idCliente, v.fecha, dv.idProducto, dv.cantidad, dv.subtotal, p.nombre AS nombre_producto
+        const [ventasGenerales] = await db.query(`
+            SELECT v.idVenta, v.fecha, c.nombre AS cliente, SUM(dv.subtotal) AS total
             FROM ventas v
+            JOIN clientes c ON v.idCliente = c.idCliente
             JOIN detalles_venta dv ON v.idVenta = dv.idVenta
+            GROUP BY v.idVenta
+        `);
+
+        // Obtener los detalles de las ventas
+        const [detalles] = await db.query(`
+            SELECT dv.idVenta, dv.idProducto, p.nombre AS producto, dv.cantidad, dv.subtotal
+            FROM detalles_venta dv
             JOIN productos p ON dv.idProducto = p.idProducto
         `);
-        res.json(rows);
+
+        // Combinar ventas generales con sus detalles
+        const ventasConDetalles = ventasGenerales.map((venta) => ({
+            ...venta,
+            productos: detalles.filter((detalle) => detalle.idVenta === venta.idVenta),
+        }));
+
+        res.json(ventasConDetalles);
     } catch (error) {
-        console.error(error);
-        res.status(500).json({ message: 'Error al obtener las ventas' });
+        console.error('Error al obtener ventas con detalles:', error);
+        res.status(500).json({ message: 'Error al obtener ventas con detalles.' });
     }
 };
 
@@ -44,41 +59,47 @@ const getVentaById = async (req, res) => {
         res.status(500).json({ message: 'Error al obtener la venta.' });
     }
 }
-
-// Agregar una venta
+// Crear una nueva venta con detalles
 const addVenta = async (req, res) => {
-    const { idCliente, fecha, productos } = req.body;
+    const { idCliente, productos } = req.body;
 
-    if (!idCliente || !fecha || !productos || productos.length === 0) {
-        return res.status(400).json({ message: 'Todos los campos son obligatorios.' });
+    if (!idCliente || !productos || productos.length === 0) {
+        return res.status(400).json({ message: 'Faltan datos de la venta.' });
     }
 
+    const connection = await db.getConnection();
     try {
-        const [ventaResult] = await db.query(
-            'INSERT INTO ventas (idCliente, fecha) VALUES (?, ?)',
-            [idCliente, fecha]
+        await connection.beginTransaction();
+
+        // Insertar la venta en la tabla "ventas"
+        const [ventaResult] = await connection.query(
+            'INSERT INTO ventas (idCliente, fecha) VALUES (?, NOW())',
+            [idCliente]
         );
+        const idVenta = ventaResult.insertId;
 
-        const ventaId = ventaResult.insertId;
+        // Insertar los productos en la tabla "detalles_venta"
+        for (const producto of productos) {
+            const { idProducto, cantidad, subtotal } = producto;
 
-        const detallesQuery = `
-            INSERT INTO detalles_venta (idVenta, idProducto, cantidad, subtotal)
-            VALUES ?
-        `;
+            if (!idProducto || !cantidad || !subtotal) {
+                throw new Error('Datos incompletos en los productos.');
+            }
 
-        const detallesValues = productos.map(producto => [
-            ventaId,
-            producto.idProducto,
-            producto.cantidad,
-            producto.subtotal,
-        ]);
+            await connection.query(
+                'INSERT INTO detalles_venta (idVenta, idProducto, cantidad, subtotal) VALUES (?, ?, ?, ?)',
+                [idVenta, idProducto, cantidad, subtotal]
+            );
+        }
 
-        await db.query(detallesQuery, [detallesValues]);
-
-        res.status(201).json({ message: 'Venta agregada correctamente', idVenta: ventaId });
+        await connection.commit();
+        res.status(201).json({ message: 'Venta creada con éxito', idVenta });
     } catch (error) {
-        console.error(error);
-        res.status(500).json({ message: 'Error al agregar la venta' });
+        await connection.rollback();
+        console.error('Error al crear la venta:', error);
+        res.status(500).json({ message: 'Error al crear la venta.' });
+    } finally {
+        connection.release();
     }
 };
 

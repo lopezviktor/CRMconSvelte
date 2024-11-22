@@ -1,104 +1,125 @@
 <script>
     import { onMount } from "svelte";
-    import { writable } from "svelte/store";
-    
-    let ventas = writable([]);
-    let clientes = writable({})
-
-    // Cargar datos desde ventas.json y clientes.json
-    onMount(async () => {
-    try {
-        const respuestaClientes = await fetch('http://localhost:3000/api/clientes');
-        const dataClientes = await respuestaClientes.json();
-
-        // Transformar la lista de clientes en un objeto con idCliente como clave
-        const clientesMap = {};
-        dataClientes.forEach(cliente => {
-            clientesMap[cliente.idCliente] = cliente;
+  
+    let ventas = [];
+    let cargando = true;
+  
+    // Función para cargar las ventas desde el backend
+    async function cargarVentas() {
+      cargando = true;
+      try {
+        const res = await fetch("http://localhost:3000/api/ventas/listar");
+        if (!res.ok) throw new Error("Error al cargar las ventas.");
+        ventas = await res.json();
+      } catch (error) {
+        console.error(error);
+        alert("Hubo un problema al cargar las ventas.");
+      } finally {
+        cargando = false;
+      }
+    }
+  
+    // Función para eliminar una venta
+    async function eliminarVenta(idVenta) {
+      if (!confirm("¿Estás seguro de que deseas eliminar esta venta?")) return;
+  
+      try {
+        const res = await fetch(`http://localhost:3000/api/ventas/eliminar/${idVenta}`, {
+          method: "DELETE",
         });
-        clientes.set(clientesMap);
-
-        const respuestaVentas = await fetch('http://localhost:3000/api/ventas');
-        const dataVentas = await respuestaVentas.json();
-        ventas.set(dataVentas);
-    } catch (error) {
-        console.error("Error al cargar los datos:", error);
+        if (!res.ok) throw new Error("Error al eliminar la venta.");
+        alert("Venta eliminada correctamente.");
+        cargarVentas(); // Recargar las ventas
+      } catch (error) {
+        console.error(error);
+        alert("Hubo un problema al eliminar la venta.");
+      }
     }
-});
-</script>
+  
+    onMount(() => {
+      cargarVentas();
+    });
+  </script>
+    
+  <h1>Ventas</h1>
 
-<h2>Lista de Ventas</h2>
-
-<div class="ventas-container">
-    {#each $ventas as venta}
-        <div class="venta-card">
-            <h3>Cliente: {$clientes[venta.idCliente]?.nombre} {$clientes[venta.idCliente]?.apellidos}</h3>
-            <p><strong>Id Venta:</strong> {venta.idVenta}</p>
-            <p><strong>Productos:</strong></p>
-            <ul class="productos-list">
+  {#if cargando}
+    <p>Cargando ventas...</p>
+  {:else}
+    <table>
+      <thead>
+        <tr>
+          <th>ID Venta</th>
+          <th>Cliente</th>
+          <th>Fecha</th>
+          <th>Total</th>
+          <th>Productos</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        {#each ventas as venta}
+          <tr>
+            <td>{venta.idVenta}</td>
+            <td>{venta.cliente}</td>
+            <td>{new Date(venta.fecha).toLocaleDateString()}</td>
+            <td>{venta.total}€</td>
+            <td>
+              <ul>
                 {#each venta.productos as producto}
-                    <li>
-                        <strong>{producto.nombre}:</strong> {producto.cantidad} unidades - Subtotal: {producto.subtotal}€
-                    </li>
+                  <li>
+                    {producto.cantidad} x {producto.producto} ({producto.subtotal}€)
+                  </li>
                 {/each}
-            </ul>
-            <p><strong>Cantidad Total de Productos:</strong> {venta.cantidad_total}</p>
-            <p><strong>Precio Total:</strong> {venta.precio_total}€</p>
-            <p><strong>Precio Medio por Producto:</strong> {venta.precio_medio}€</p>
-        </div>
-    {/each}
-</div>
-
-<style>
-    h2 {
-        text-align: center;
-        color: #1A73E8;
-        margin-bottom: 1.5rem;
+              </ul>
+            </td>
+            <td>
+              <button on:click={() => eliminarVenta(venta.idVenta)}>Eliminar</button>
+              <a href={`/ventas/editar/${venta.idVenta}`}>Editar</a>
+            </td>
+          </tr>
+        {/each}
+      </tbody>
+    </table>
+  {/if}
+  
+  
+  <style>
+    table {
+      width: 100%;
+      border-collapse: collapse;
     }
-    .ventas-container {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 1rem;
-        justify-content: center;
+  
+    th, td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: left;
     }
-
-    .venta-card {
-        background-color: #f0f7ff;
-        border: 1px solid #e0e0e0;
-        border-radius: 10px;
-        padding: 1.5rem;
-        width: 300px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        transition: transform 0.2s, box-shadow 0.2s;
+  
+    th {
+      background-color: #f4f4f4;
     }
-
-    .venta-card:hover {
-        transform: translateY(-4px);
-        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  
+    button {
+      background-color: #e74c3c;
+      color: white;
+      border: none;
+      padding: 5px 10px;
+      cursor: pointer;
+      border-radius: 3px;
     }
-
-    .venta-card h3 {
-        font-size: 1.2rem;
-        color: #1A73E8;
-        margin-bottom: 0.5rem;
+  
+    button:hover {
+      background-color: #c0392b;
     }
-
-    .venta-card p, .productos-list {
-        margin: 0.3rem 0;
-        font-size: 0.9rem;
-        color: #555;
+  
+    a {
+      margin-left: 10px;
+      color: #3498db;
+      text-decoration: none;
     }
-
-    .venta-card p strong {
-        color: #333;
+  
+    a:hover {
+      text-decoration: underline;
     }
-
-    .productos-list {
-        padding: 0;
-        list-style: none;
-    }
-
-    .productos-list li {
-        margin: 0.2rem 0;
-    }
-</style>
+  </style>
