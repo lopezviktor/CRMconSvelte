@@ -75,38 +75,3 @@
     </form>
   {/if}
   
-  <style>
-    form {
-      display: flex;
-      flex-direction: column;
-      max-width: 400px;
-      margin: 0 auto;
-    }
-  
-    label {
-      margin-bottom: 1rem;
-    }
-  
-    input {
-      width: 100%;
-      padding: 0.5rem;
-      border: 1px solid #ddd;
-      border-radius: 5px;
-      margin-top: 0.5rem;
-    }
-  
-    button {
-      background-color: #1A73E8;
-      color: white;
-      font-size: 1rem;
-      padding: 0.5rem 1rem;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      margin-top: 1rem;
-    }
-  
-    button:hover {
-      background-color: #155ab2;
-    }
-  </style>

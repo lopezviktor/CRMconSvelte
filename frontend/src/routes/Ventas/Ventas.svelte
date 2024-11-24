@@ -41,85 +41,44 @@
     });
   </script>
     
-  <h1>Ventas</h1>
+<h1>Ventas</h1>
 
-  {#if cargando}
-    <p>Cargando ventas...</p>
-  {:else}
-    <table>
-      <thead>
+{#if cargando}
+  <p>Cargando ventas...</p>
+{:else}
+  <table>
+    <thead>
+      <tr>
+        <th>ID Venta</th>
+        <th>Cliente</th>
+        <th>Fecha</th>
+        <th>Total</th>
+        <th>Productos</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      {#each ventas as venta}
         <tr>
-          <th>ID Venta</th>
-          <th>Cliente</th>
-          <th>Fecha</th>
-          <th>Total</th>
-          <th>Productos</th>
-          <th>Acciones</th>
+          <td>{venta.idVenta}</td>
+          <td>{venta.cliente}</td>
+          <td>{new Date(venta.fecha).toLocaleDateString()}</td>
+          <td>{venta.total}€</td>
+          <td>
+            <ul>
+              {#each venta.productos as producto}
+                <li>
+                  {producto.cantidad} x {producto.producto} ({producto.subtotal}€)
+                </li>
+              {/each}
+            </ul>
+          </td>
+          <td>
+            <button on:click={() => eliminarVenta(venta.idVenta)}>Eliminar</button>
+            <a href={`/ventas/editar/${venta.idVenta}`}>Editar</a>
+          </td>
         </tr>
-      </thead>
-      <tbody>
-        {#each ventas as venta}
-          <tr>
-            <td>{venta.idVenta}</td>
-            <td>{venta.cliente}</td>
-            <td>{new Date(venta.fecha).toLocaleDateString()}</td>
-            <td>{venta.total}€</td>
-            <td>
-              <ul>
-                {#each venta.productos as producto}
-                  <li>
-                    {producto.cantidad} x {producto.producto} ({producto.subtotal}€)
-                  </li>
-                {/each}
-              </ul>
-            </td>
-            <td>
-              <button on:click={() => eliminarVenta(venta.idVenta)}>Eliminar</button>
-              <a href={`/ventas/editar/${venta.idVenta}`}>Editar</a>
-            </td>
-          </tr>
-        {/each}
-      </tbody>
-    </table>
-  {/if}
-  
-  
-  <style>
-    table {
-      width: 100%;
-      border-collapse: collapse;
-    }
-  
-    th, td {
-      border: 1px solid #ddd;
-      padding: 8px;
-      text-align: left;
-    }
-  
-    th {
-      background-color: #f4f4f4;
-    }
-  
-    button {
-      background-color: #e74c3c;
-      color: white;
-      border: none;
-      padding: 5px 10px;
-      cursor: pointer;
-      border-radius: 3px;
-    }
-  
-    button:hover {
-      background-color: #c0392b;
-    }
-  
-    a {
-      margin-left: 10px;
-      color: #3498db;
-      text-decoration: none;
-    }
-  
-    a:hover {
-      text-decoration: underline;
-    }
-  </style>
+      {/each}
+    </tbody>
+  </table>
+{/if}

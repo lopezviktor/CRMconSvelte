@@ -1,5 +1,7 @@
 <script>
   import { Router, Route } from 'svelte-routing';
+  import './app.css';
+
   import Navbar from './components/Navbar.svelte';
   import Footer from './components/Footer.svelte';
   import Home from './routes/Home.svelte';
@@ -18,27 +20,46 @@
   import Empleados from './routes/Empleados/Empleados.svelte';
   import GestionEmpleados from './routes/Empleados/GestionEmpleados.svelte';
 
+  let isDarkMode = false;
+
+  // Alternar entre temas
+  function toggleTheme() {
+    isDarkMode = !isDarkMode;
+    document.body.classList.toggle('dark-mode', isDarkMode);
+    document.body.classList.toggle('light-mode', !isDarkMode);
+  }
+
 </script>
 
 <Router>
   <Navbar />
   <main>
+    <button on:click={toggleTheme} class="toggle-theme-btn">
+      Cambiar a {isDarkMode ? 'Modo Claro' : 'Modo Oscuro'}
+    </button>
+
+    <!-- Rutas -->
     <Route path="/" component={Home} />
-    <!--ventas-->
+
+    <!-- Ventas -->
     <Route path="/ventas/anadir" component={AddVenta} />
     <Route path="/ventas/listar" component={Ventas} />
     <Route path="/ventas/gestionar" component={GestionVentas} />
-        <!--ventas-->
+
+    <!-- Clientes -->
     <Route path="/clientes/anadir" component={AddCliente} />
     <Route path="/clientes/listar" component={Clientes} />
     <Route path="/clientes/editar/:id" let:params>
       <EditarCliente idCliente={params.id} />
     </Route>
     <Route path="/clientes/gestionar" component={GestionClientes} />
-        <!--ventas-->
+
+    <!-- Empleados -->
     <Route path="/empleados/anadir" component={AddEmpleado} />
     <Route path="/empleados/listar" component={Empleados} />
     <Route path="/empleados/gestionar" component={GestionEmpleados} />
+
+    <!-- 404 -->
     <Route path="*" component={NotFound} />
   </main>
   <Footer />
@@ -46,8 +67,23 @@
 
 <style>
   main {
-    margin: 2rem 0; 
-    padding: 1rem; 
-    min-height: calc(100vh - 10rem); 
+    margin: 2rem 0;
+    padding: 1rem;
+    min-height: calc(100vh - 10rem);
+  }
+
+  .toggle-theme-btn {
+    margin: 1rem 0;
+    padding: 0.5rem 1rem;
+    border: none;
+    background-color: var(--color-primary);
+    color: var(--color-bg);
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  .toggle-theme-btn:hover {
+    background-color: var(--color-primary-hover);
   }
 </style>
