@@ -22,7 +22,7 @@
 
   let isDarkMode = false;
 
-  // Alternar entre temas
+
   function toggleTheme() {
     isDarkMode = !isDarkMode;
     document.body.classList.toggle('dark-mode', isDarkMode);
@@ -32,11 +32,9 @@
 </script>
 
 <Router>
-  <Navbar />
-  <main>
-    <button on:click={toggleTheme} class="toggle-theme-btn">
-      Cambiar a {isDarkMode ? 'Modo Claro' : 'Modo Oscuro'}
-    </button>
+  <Navbar {isDarkMode} {toggleTheme} />
+  <main class:dark-mode={isDarkMode} class:light-mode={!isDarkMode}>
+    <Route path="/" component={Home} />
 
     <!-- Rutas -->
     <Route path="/" component={Home} />
@@ -70,20 +68,6 @@
     margin: 2rem 0;
     padding: 1rem;
     min-height: calc(100vh - 10rem);
-  }
-
-  .toggle-theme-btn {
-    margin: 1rem 0;
-    padding: 0.5rem 1rem;
-    border: none;
-    background-color: var(--color-primary);
-    color: var(--color-bg);
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-
-  .toggle-theme-btn:hover {
-    background-color: var(--color-primary-hover);
+    transition: background-color 0.3s ease, color 0.3s ease;
   }
 </style>

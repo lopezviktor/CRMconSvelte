@@ -1,10 +1,12 @@
 <script>
+  export let isDarkMode = false;
+  export let toggleTheme;
+
   import { Link } from 'svelte-routing';
 
   // Obtener la ruta actual desde el navegador
   let currentPath = window.location.pathname;
 
-  // Escuchar cambios en la ruta (por si cambia dinámicamente)
   window.addEventListener('popstate', () => {
     currentPath = window.location.pathname;
   });
@@ -39,5 +41,39 @@
         <li><Link to="/empleados/turnos">Turnos</Link></li>
       </ul>
     </li>
+    <li>
+      <button on:click={toggleTheme} class="theme-toggle">
+        {#if isDarkMode}
+          <img src="/images/lightMode.png" alt="sol de modo claro" class="theme-icon"> 
+        {:else}
+          <img src="/images/darkMode.png" alt="luna de modo oscuro" class="theme-icon"> 
+        {/if}
+      </button>
+    </li>
   </ul>
 </nav>
+
+<style>
+  .theme-toggle {
+  background-color: transparent; /* Fondo dinámico configurado abajo */
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border-radius: 50%;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Ícono del tema */
+.theme-icon {
+  height: 24px;
+  width: 24px;
+  transition: filter 0.3s ease, background-color 0.3s ease;
+}
+/* Hover para ambos modos */
+.theme-toggle:hover {
+  transform: scale(1.1);
+}
+</style>

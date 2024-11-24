@@ -192,9 +192,10 @@ nav ul li a:hover {
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   list-style: none;
   padding: 1rem;
-  margin: 0;
+  margin: 5px 0;
   width: 200px;
   text-align: left;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .submenu li {
