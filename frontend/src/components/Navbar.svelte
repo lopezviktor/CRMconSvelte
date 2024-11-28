@@ -44,7 +44,8 @@
     <li class="menu-item">      
       <button on:click={toggleTheme} class="theme-toggle">
         {#if isDarkMode}
-          <img src="/images/lightMode.png" alt="sol de modo claro" class="theme-icon" id="solModoClaro"> 
+        <img src="/images/lightMode.png" alt="sol de modo claro" class="theme-icon" id="solModoClaro"> 
+
         {:else}
           <img src="/images/darkMode.png" alt="luna de modo oscuro" class="theme-icon"> 
         {/if}
