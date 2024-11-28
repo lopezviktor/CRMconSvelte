@@ -41,10 +41,11 @@
         <li><Link to="/empleados/turnos">Turnos</Link></li>
       </ul>
     </li>
-    <li>
+    <li class="menu-item">      
       <button on:click={toggleTheme} class="theme-toggle">
         {#if isDarkMode}
         <img src="/images/lightMode.png" alt="sol de modo claro" class="theme-icon" id="solModoClaro"> 
+
         {:else}
           <img src="/images/darkMode.png" alt="luna de modo oscuro" class="theme-icon"> 
         {/if}
@@ -52,7 +53,6 @@
     </li>
   </ul>
 </nav>
-
 <style>
   .theme-toggle {
   background-color: transparent; /* Fondo dinámico configurado abajo */
