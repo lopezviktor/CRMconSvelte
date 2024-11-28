@@ -65,9 +65,11 @@
             <td>{cliente.email}</td>
             <td>{cliente.telefono}</td>
             <td>{cliente.ciudad}</td>
-            <td>
-              <button on:click={() => eliminarCliente(cliente.idCliente)}>Eliminar</button>
-              <a href={`/clientes/editar/${cliente.idCliente}`}>Editar</a>
+            <td style="text-align: center; vertical-align: middle;">
+              <div style="display: inline-block; text-align: center;">
+                <a href={`/clientes/editar/${cliente.idCliente}`} style="margin-right: 10px;">Editar</a>
+                <button class="btn-rojo" on:click={() => eliminarCliente(cliente.idCliente)}>Eliminar</button>
+              </div>
             </td>
           </tr>
         {/each}

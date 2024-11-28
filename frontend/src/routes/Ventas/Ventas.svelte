@@ -73,9 +73,11 @@
               {/each}
             </ul>
           </td>
-          <td>
-            <button on:click={() => eliminarVenta(venta.idVenta)}>Eliminar</button>
-            <a href={`/ventas/editar/${venta.idVenta}`}>Editar</a>
+          <td style="text-align: center; vertical-align: middle;">
+            <div style="display: inline-block; text-align: center;">
+              <a href={`/ventas/editar/${venta.idVenta}`} style="margin-right: 15px;">Editar</a>
+              <button class="btn-rojo" on:click={() => eliminarVenta(venta.idVenta)}>Eliminar</button>
+            </div>
           </td>
         </tr>
       {/each}
