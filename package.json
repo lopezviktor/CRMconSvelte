@@ -3,6 +3,7 @@
     "svelte-routing": "^2.13.0"
   },
   "devDependencies": {
+    "rollup": "^4.27.4",
     "vite": "^5.4.11"
   }
 }
