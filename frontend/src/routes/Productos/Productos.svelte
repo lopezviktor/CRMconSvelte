@@ -1,5 +1,6 @@
 <script>
     import { onMount } from 'svelte';
+    import { navigate } from 'svelte-routing';
 
     let productos = [];
     let error = '';
@@ -17,14 +18,33 @@
         console.error('Error al obtener productos:', err);
         }
     }
-    onMount(() => {
-        fetchProductos();
-    });
+    // Eliminar productos
+    async function eliminarProducto(idProducto){
+      if (confirm("¿Estás seguro de eliminar este producto?")) {
+        try {
+          await fetch(`http://localhost:3000/api/productos/eliminar/${idProducto}`, {
+            method: "DELETE",
+          });
+          alert("Producto eliminado.");
+          fetchProductos();
+        } catch (error) {
+          console.error("Error al eliminar producto:", error);
+          alert("Error al eliminar el producto.");
+        }
+      }
+    }
+
+  onMount(() => {
+    fetchProductos();
+  });
+
 </script>
 
 <main>
     <h2>Lista de Productos</h2>
   
+    <button on:click={() => navigate("/productos/anadir")}>Añadir Producto</button>
+
     {#if error}
       <p class="error">{error}</p>
     {:else if productos.length === 0}
@@ -38,6 +58,7 @@
             <th>Precio</th>
             <th>Categoría</th>
             <th>Stock</th>
+            <th>Acciones</th>
           </tr>
         </thead>
         <tbody>
@@ -48,6 +69,10 @@
               <td>{producto.precio}</td>
               <td>{producto.categoria}</td>
               <td>{producto.stock}</td>
+              <td>
+                <button on:click={() => navigate(`/productos/editar/${producto.idProducto}`)}>Editar</button>
+                <button on:click={() => eliminarProducto(producto.idProducto)}>Eliminar</button>
+              </td>
             </tr>
           {/each}
         </tbody>

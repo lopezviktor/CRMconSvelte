@@ -17,7 +17,7 @@
 
     // Cargamos productos desde el backend
     async function cargarProductos() {
-        const res = await fetch("http://localhost:3000/api/productos");
+        const res = await fetch("http://localhost:3000/api/productos/listar");
         productos = await res.json(); 
     }
 
@@ -44,7 +44,7 @@
         const subtotal = producto.precio * cantidad;
         carrito = [...carrito, { ...producto, cantidad, subtotal }];
         actualizarPrecioTotal();
-        limpiarCantidad();
+        selectedCantidad = 1; // Reinicia la cantidad después de agregar
     }
 
     // Actualizar el precio total
@@ -67,10 +67,14 @@
                 body: JSON.stringify(venta),
             });
             if (!res.ok) throw new Error("Error al guardar la venta.");
+
             alert("Venta guardada correctamente.");
+
             carrito = [];
             idCliente = "";
             precioTotal = 0;
+            
+            await cargarProductos();
         }catch (error) {
             console.log(error);
             alert("Hubo un error al guardar la venta.")
@@ -95,15 +99,18 @@
     </select>
   </label>
 
-  <label>
-    Producto:
-    <select bind:value="{selectedProduct}">
-      <option value="" disabled selected>Selecciona un producto</option>
-      {#each productos as producto}
-        <option value={producto.idProducto}>{producto.nombre} - {producto.precio}€</option>
-      {/each}
-    </select>
-  </label>
+  <!-- Selección de producto -->
+  <div>
+    <label for="producto">Producto:</label>
+      <select id="producto" bind:value={selectedProduct}>
+          <option value="" disabled>Selecciona un producto</option>
+          {#each productos as producto}
+              <option value={producto.idProducto} disabled={producto.stock === 0}>
+                  {producto.nombre} - Precio: {producto.precio}€ - Stock: {producto.stock}
+              </option>
+          {/each}
+      </select>
+  </div>
 
   <div class="teclado">
     <p>Cantidad: {selectedCantidad || 0}</p>

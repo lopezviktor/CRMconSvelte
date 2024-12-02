@@ -24,6 +24,8 @@
   import GestionEmpleados from './routes/Empleados/GestionEmpleados.svelte';
 
   import Productos from './routes/Productos/Productos.svelte';
+  import AddProducto from './routes/Productos/AddProducto.svelte'
+  import EditarProducto from './routes/Productos/EditarProducto.svelte';
 
   let isDarkMode = false;
 
@@ -67,6 +69,10 @@
 
     <!-- Productos -->
     <Route path="/productos" component={Productos} />
+    <Route path="/productos/anadir" component={AddProducto} />
+    <Route path="/productos/editar/:id" let:params>
+      <EditarProducto idProducto={params.id} />
+    </Route>
 
     <!-- Contactar -->
     <Route path="/clientes/contacto" component={FormCliente} />

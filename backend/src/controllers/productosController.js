@@ -65,11 +65,16 @@ const addProducto = async (req, res) => {
 // Editar un producto
 const updateProducto = async (req, res) => {
     const { id } = req.params;
-    const { nombre, precio, id_categoria } = req.body;
+    const { nombre, precio, id_categoria, stock } = req.body;
+
+    // Validar que todos los campos necesarios están presentes
+    if (!nombre || !precio || !id_categoria || stock === undefined) {
+        return res.status(400).json({ message: 'Todos los campos son obligatorios.' });
+    }
 
     try {
-        const query = `UPDATE productos SET nombre = ?, precio = ?, id_categoria = ? WHERE idProducto = ?`;
-        await db.query(query, [nombre, precio, id_categoria, id]);
+        const query = `UPDATE productos SET nombre = ?, precio = ?, id_categoria = ?, stock = ? WHERE idProducto = ?`;
+        await db.query(query, [nombre, precio, id_categoria, stock, id]);
         res.json({ message: 'Producto actualizado.' });
     } catch (error) {
         console.error('Error al actualizar producto:', error);
