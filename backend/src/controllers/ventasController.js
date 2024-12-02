@@ -78,7 +78,7 @@ const addVenta = async (req, res) => {
         );
         const idVenta = ventaResult.insertId;
 
-        // Insertar los productos en la tabla "detalles_venta"
+        // Validar stock y registrar los productos en la tabla "detalles_venta"
         for (const producto of productos) {
             const { idProducto, cantidad, subtotal } = producto;
 
@@ -86,9 +86,32 @@ const addVenta = async (req, res) => {
                 throw new Error('Datos incompletos en los productos.');
             }
 
+            // Verificar si hay suficiente stock
+            const [productoData] = await connection.query(
+                'SELECT stock FROM productos WHERE idProducto = ?',
+                [idProducto]
+            );
+
+            if (productoData.length === 0) {
+                throw new Error(`Producto con ID ${idProducto} no encontrado.`);
+            }
+
+            if (productoData[0].stock < cantidad) {
+                throw new Error(
+                    `Stock insuficiente para el producto con ID ${idProducto}.`
+                );
+            }
+
+            // Insertar en la tabla "detalles_venta"
             await connection.query(
                 'INSERT INTO detalles_venta (idVenta, idProducto, cantidad, subtotal) VALUES (?, ?, ?, ?)',
                 [idVenta, idProducto, cantidad, subtotal]
+            );
+
+            // Actualizar el stock del producto
+            await connection.query(
+                'UPDATE productos SET stock = stock - ? WHERE idProducto = ?',
+                [cantidad, idProducto]
             );
         }
 
@@ -96,8 +119,8 @@ const addVenta = async (req, res) => {
         res.status(201).json({ message: 'Venta creada con éxito', idVenta });
     } catch (error) {
         await connection.rollback();
-        console.error('Error al crear la venta:', error);
-        res.status(500).json({ message: 'Error al crear la venta.' });
+        console.error('Error al crear la venta:', error.message);
+        res.status(500).json({ message: `Error al crear la venta: ${error.message}` });
     } finally {
         connection.release();
     }
