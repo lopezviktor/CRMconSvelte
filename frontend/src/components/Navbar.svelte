@@ -40,6 +40,11 @@
       </ul>
     </li>
 
+    <!-- Opción Productos -->
+    <li class="menu-item">
+      <a href="/productos" class="nav-link">Productos</a>
+    </li>
+
     <!-- Botón para cambiar el tema -->
     <li class="menu-item">
       <button on:click={toggleTheme} class="theme-toggle">

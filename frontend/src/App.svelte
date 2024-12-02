@@ -23,6 +23,8 @@
   import EditarEmpleado from './routes/Empleados/EditarEmpleado.svelte';
   import GestionEmpleados from './routes/Empleados/GestionEmpleados.svelte';
 
+  import Productos from './routes/Productos/Productos.svelte';
+
   let isDarkMode = false;
 
 
@@ -62,6 +64,9 @@
       <EditarEmpleado idEmpleado={params.id} />
     </Route>
     <Route path="/empleados/gestionar" component={GestionEmpleados} />
+
+    <!-- Productos -->
+    <Route path="/productos" component={Productos} />
 
     <!-- Contactar -->
     <Route path="/clientes/contacto" component={FormCliente} />
