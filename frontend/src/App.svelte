@@ -9,7 +9,7 @@
 
   import AddVenta from './routes/Ventas/AddVenta.svelte';
   import Ventas from './routes/Ventas/Ventas.svelte';
-  import GestionVentas from './routes/Ventas/GestionVentas.svelte';
+  import ReportesVentas from './routes/Ventas/ReportesVentas.svelte';
 
   import AddCliente from './routes/Clientes/AddCliente.svelte';
   import Clientes from './routes/Clientes/Clientes.svelte';
@@ -49,7 +49,7 @@
     <!-- Ventas -->
     <Route path="/ventas/anadir" component={AddVenta} />
     <Route path="/ventas/listar" component={Ventas} />
-    <Route path="/ventas/gestionar" component={GestionVentas} />
+    <Route path="/ventas/reportes/mas-vendidos" component={ReportesVentas} />
 
     <!-- Clientes -->
     <Route path="/clientes/anadir" component={AddCliente} />

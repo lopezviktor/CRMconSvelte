@@ -218,10 +218,31 @@ const deleteVenta = async (req, res) => {
         connection.release();
     }
 };
+
+// Obtener los productosM mas vendidos
+const getProductosMasVendidos = async (req, res) => {
+    try {
+        const query = `
+            SELECT p.nombre, SUM(dv.cantidad) AS total_vendido
+            FROM detalles_venta dv
+            INNER JOIN productos p ON dv.idProducto = p.idProducto
+            GROUP BY p.idProducto
+            ORDER BY total_vendido DESC
+            LIMIT 10;
+        `;
+        const [result] = await db.query(query);
+        res.json(result);
+    } catch (error) {
+        console.error("Error al obtener productos más vendidos:", error);
+        res.status(500).json({ message: "Error al obtener productos más vendidos." });
+    }
+};
+
 module.exports = {
     getVentas,
     addVenta,
     updateVenta, 
     deleteVenta,
     getVentaById,
+    getProductosMasVendidos
 };
