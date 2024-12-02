@@ -27,7 +27,7 @@
       <ul class="submenu">
         <li><a href="/ventas/anadir">Añadir Venta</a></li>
         <li><a href="/ventas/listar">Historial de Ventas</a></li>
-        <li><a href="/ventas/reportes">Reportes</a></li>
+        <li><a href="/ventas/reportes/mas-vendidos">Reportes</a></li>
       </ul>
     </li>
     <!-- Opción Empleados -->
@@ -38,6 +38,11 @@
         <li><a href="/empleados/listar">Lista de Empleados</a></li>
         <li><a href="/empleados/turnos">Turnos</a></li>
       </ul>
+    </li>
+
+    <!-- Opción Productos -->
+    <li class="menu-item">
+      <a href="/productos" class="nav-link">Productos</a>
     </li>
 
     <!-- Botón para cambiar el tema -->
