@@ -55,7 +55,7 @@
 
             alert('Cliente agregado con éxito');
             resetFormulario();
-            navigate('/clientes');
+            navigate('/clientes/listar');
         } catch (error) {
             console.error('Error al agregar el cliente:', error);
             alert('Hubo un problema al guardar el cliente.');

@@ -15,9 +15,12 @@
   import Clientes from './routes/Clientes/Clientes.svelte';
   import EditarCliente from "./routes/Clientes/EditarCliente.svelte";
   import GestionClientes from './routes/Clientes/GestionClientes.svelte';
+  import FormCliente from './routes/Clientes/FormCliente.svelte';
+  import TerminosCliente from './routes/Clientes/TerminosCliente.svelte';
 
   import AddEmpleado from './routes/Empleados/AddEmpleado.svelte';
   import Empleados from './routes/Empleados/Empleados.svelte';
+  import EditarEmpleado from './routes/Empleados/EditarEmpleado.svelte';
   import GestionEmpleados from './routes/Empleados/GestionEmpleados.svelte';
 
   let isDarkMode = false;
@@ -55,7 +58,14 @@
     <!-- Empleados -->
     <Route path="/empleados/anadir" component={AddEmpleado} />
     <Route path="/empleados/listar" component={Empleados} />
+    <Route path="/empleados/editar/:id" let:params>
+      <EditarEmpleado idEmpleado={params.id} />
+    </Route>
     <Route path="/empleados/gestionar" component={GestionEmpleados} />
+
+    <!-- Contactar -->
+    <Route path="/clientes/contacto" component={FormCliente} />
+    <Route path="/clientes/terminos" component={TerminosCliente} />
 
     <!-- 404 -->
     <Route path="*" component={NotFound} />

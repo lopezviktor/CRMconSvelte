@@ -1,13 +1,14 @@
 # Ignorar dependencias del backend y frontend
 backend/node_modules/
-CRMsvelte/node_modules/
+frontend/node_modules/
+CRM_svelte/node_modules/
 
 # Ignorar variables de entorno
 backend/.env
-CRMsvelte/.env
+CRM_svelte/.env
 
 # Ignorar archivos de construcción del frontend
-CRMsvelte/dist/
+CRM_svelte/dist/
 
 # Ignorar logs
 *.log
