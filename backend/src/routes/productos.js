@@ -5,10 +5,15 @@ const {
     getProductoById, 
     addProducto, 
     updateProducto, 
-    deleteProducto, incrementarStock, decrementarStock } = require('../controllers/productosController');
+    deleteProducto, 
+    incrementarStock, 
+    decrementarStock,
+    productosConBajoStock 
+} = require('../controllers/productosController');
 
 router.get('/listar', getProductos);
 router.get('/listar/:id', getProductoById);
+router.get('/bajo-stock', productosConBajoStock)
 router.post('/anadir', addProducto);
 router.put('/editar/:id', updateProducto);
 router.delete('/eliminar/:id', deleteProducto);

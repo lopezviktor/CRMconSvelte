@@ -12,6 +12,10 @@
 
 <nav>
   <ul>
+    <!-- Opción Home -->
+    <li class="menu-item">
+      <a href="/" class="nav-link">Home</a>
+    </li>
     <!-- Opción Clientes -->
     <li class="menu-item">
       <span class="dropdown-trigger">Clientes</span>
