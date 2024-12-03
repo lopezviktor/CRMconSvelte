@@ -12,13 +12,17 @@
 
 <nav>
   <ul>
+    <!-- Opción Home -->
+    <li class="menu-item">
+      <a href="/" class="nav-link">Home</a>
+    </li>
     <!-- Opción Clientes -->
     <li class="menu-item">
       <span class="dropdown-trigger">Clientes</span>
       <ul class="submenu">
         <li><a href="/clientes/anadir">Añadir Cliente</a></li>
         <li><a href="/clientes/listar">Lista de Clientes</a></li>
-        <li><a href="/clientes/historial">Historial de Clientes</a></li>
+        <li><a href="/clientes/historialClientes">Historial de Clientes</a></li>
       </ul>
     </li>
     <!-- Opción Ventas -->

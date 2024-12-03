@@ -33,32 +33,48 @@ const getVentas = async (req, res) => {
 
 //Obtener una venta por su id
 const getVentaById = async (req, res) => {
-    const {id} = req.params;
+    const { id } = req.params;
 
-    if (!id) {
-        return res.status(400).json ({message: 'ID del cliente es obligatorio'});
-    }
     try {
-        const [rows] = await db.query('SELECT * FROM ventas WHERE idVenta = ?', [id]);
-        if (venta.length === 0) {
-            return res.status(400).json ({message: 'Venta no encontrada'});
+        const [result] = await db.query(`
+            SELECT 
+                v.idVenta, 
+                v.fecha, 
+                CONCAT(c.nombre, ' ', c.apellidos) AS cliente, 
+                SUM(dv.cantidad * dv.subtotal / dv.cantidad) AS total
+            FROM ventas v
+            JOIN clientes c ON v.idCliente = c.idCliente
+            JOIN detalles_venta dv ON v.idVenta = dv.idVenta
+            WHERE v.idVenta = ?
+            GROUP BY v.idVenta
+        `, [id]);
+
+        if (result.length === 0) {
+            return res.status(404).json({ message: 'Venta no encontrada.' });
         }
-        // Obtener los detalles de la venta
-        const [detalles] = await db.query(
-            'SELECT dv.idProducto, dv.cantidad, dv.subtotal, p.nombre AS productoNombre FROM detalles_venta dv JOIN productos p ON dv.idProducto = p.idProducto WHERE dv.idVenta = ?',
-            [id]
-        );
+
+        // Obtener detalles de los productos vendidos en esta venta
+        const [detalles] = await db.query(`
+            SELECT 
+                dv.idProducto, 
+                p.nombre AS producto, 
+                dv.cantidad, 
+                dv.subtotal / dv.cantidad AS precioUnitario, 
+                dv.subtotal
+            FROM detalles_venta dv
+            JOIN productos p ON dv.idProducto = p.idProducto
+            WHERE dv.idVenta = ?
+        `, [id]);
 
         res.json({
-            ...venta[0],
-            detalles, // Añadimos los detalles de la venta
+            ...result[0],
+            productos: detalles,
         });
-
     } catch (error) {
         console.error('Error al obtener venta por ID:', error);
         res.status(500).json({ message: 'Error al obtener la venta.' });
     }
-}
+};
 // Crear una nueva venta con detalles
 const addVenta = async (req, res) => {
     const { idCliente, productos } = req.body;
@@ -219,7 +235,7 @@ const deleteVenta = async (req, res) => {
     }
 };
 
-// Obtener los productosM mas vendidos
+// Obtener los productos mas vendidos
 const getProductosMasVendidos = async (req, res) => {
     try {
         const query = `
@@ -238,11 +254,83 @@ const getProductosMasVendidos = async (req, res) => {
     }
 };
 
+// Obtener ventas del día
+const ventasDelDia = async (req, res) => {
+    try {
+        const [result] = await db.query(`
+            SELECT SUM(dv.cantidad * dv.precio) AS total
+            FROM ventas v
+            JOIN detalles_venta dv ON v.idVenta = dv.idVenta
+            WHERE DATE(v.fecha) = CURDATE()
+        `);
+        res.json({ total: result[0].total || 0 });
+    } catch (error) {
+        console.error('Error al obtener las ventas del día:', error);
+        res.status(500).json({ message: 'Error al obtener las ventas del día.' });
+    }
+};
+
+// Ultimas ventas
+const ultimasVentas = async (req, res) => {
+    try {
+        const [result] = await db.query(`
+            SELECT v.fecha, 
+                   CONCAT(c.nombre, ' ', c.apellidos) AS cliente, 
+                   SUM(dv.subtotal) AS total
+            FROM ventas v
+            JOIN clientes c ON v.idCliente = c.idCliente
+            JOIN detalles_venta dv ON v.idVenta = dv.idVenta
+            GROUP BY v.idVenta
+            ORDER BY v.fecha DESC
+            LIMIT 10
+        `);
+        res.json(result);
+    } catch (error) {
+        console.error('Error al obtener las últimas ventas:', error);
+        res.status(500).json({ message: 'Error al obtener las últimas ventas.' });
+    }
+};
+
+// Obtener cantidad total de ventas del mes
+const cantidadVentasMes = async (req, res) => {
+    try {
+        const [result] = await db.query(`
+            SELECT COUNT(*) AS totalVentas
+            FROM ventas
+            WHERE MONTH(fecha) = MONTH(CURDATE()) AND YEAR(fecha) = YEAR(CURDATE())
+        `);
+        res.json(result[0]); // Devuelve el primer resultado
+    } catch (error) {
+        console.error("Error al obtener la cantidad de ventas del mes:", error);
+        res.status(500).json({ message: "Error al obtener la cantidad de ventas del mes." });
+    }
+};
+
+// Obtener cantidad total de productos vendidos este mes
+const cantidadProductosVendidosMes = async (req, res) => {
+    try {
+        const [result] = await db.query(`
+            SELECT SUM(dv.cantidad) AS totalProductosVendidos
+            FROM detalles_venta dv
+            INNER JOIN ventas v ON dv.idVenta = v.idVenta
+            WHERE MONTH(v.fecha) = MONTH(CURDATE()) AND YEAR(v.fecha) = YEAR(CURDATE())
+        `);
+        res.json(result[0]); // Devuelve el primer resultado
+    } catch (error) {
+        console.error("Error al obtener la cantidad de productos vendidos este mes:", error);
+        res.status(500).json({ message: "Error al obtener la cantidad de productos vendidos este mes." });
+    }
+};
+
 module.exports = {
     getVentas,
     addVenta,
     updateVenta, 
     deleteVenta,
     getVentaById,
-    getProductosMasVendidos
+    getProductosMasVendidos,
+    ventasDelDia,
+    ultimasVentas,
+    cantidadVentasMes,
+    cantidadProductosVendidosMes
 };

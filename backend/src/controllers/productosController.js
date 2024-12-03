@@ -133,5 +133,24 @@ const decrementarStock = async (req, res) => {
     }
 }
 
+//Productos stock bajo
+const productosConBajoStock = async (req, res) => {
+    try {
+        const [result] = await db.query(`
+            SELECT 
+                nombre AS producto, stock 
+            FROM 
+                productos
+            WHERE 
+                stock <= 5
+            ORDER BY 
+                stock ASC;
+        `);
+        res.json(result);
+    } catch (error) {
+        console.error('Error al obtener productos con bajo stock:', error);
+        res.status(500).json({ message: 'Error al obtener productos con bajo stock.' });
+    }
+};
 
-module.exports = { getProductos, getProductoById, addProducto, updateProducto, deleteProducto, incrementarStock, decrementarStock };
+module.exports = { getProductos, getProductoById, addProducto, updateProducto, deleteProducto, incrementarStock, decrementarStock, productosConBajoStock };

@@ -14,7 +14,7 @@
   import AddCliente from './routes/Clientes/AddCliente.svelte';
   import Clientes from './routes/Clientes/Clientes.svelte';
   import EditarCliente from "./routes/Clientes/EditarCliente.svelte";
-  import GestionClientes from './routes/Clientes/GestionClientes.svelte';
+  import HistorialClientes from './routes/Clientes/HistorialClientes.svelte';
   import FormCliente from './routes/Clientes/FormCliente.svelte';
   import TerminosCliente from './routes/Clientes/TerminosCliente.svelte';
 
@@ -57,7 +57,7 @@
     <Route path="/clientes/editar/:id" let:params>
       <EditarCliente idCliente={params.id} />
     </Route>
-    <Route path="/clientes/gestionar" component={GestionClientes} />
+    <Route path="/clientes/historialClientes" component={HistorialClientes} />
 
     <!-- Empleados -->
     <Route path="/empleados/anadir" component={AddEmpleado} />

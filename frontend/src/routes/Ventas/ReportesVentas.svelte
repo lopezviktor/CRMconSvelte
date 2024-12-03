@@ -10,11 +10,16 @@
     let chartCanvas;
 
     async function cargarProductosMasVendidos() {
-        try {
+      try {
             const res = await fetch("http://localhost:3000/api/ventas/reportes/mas-vendidos");
             productosMasVendidos = await res.json();
 
-            // Una vez cargados los datos, crea la gráfica
+            // Ordenar los productos por total vendido y tomar los 8 más vendidos
+            productosMasVendidos = productosMasVendidos
+                .sort((a, b) => b.total_vendido - a.total_vendido)
+                .slice(0, 8);
+
+            // Crear la gráfica después de cargar los datos
             crearGrafica();
         } catch (error) {
             console.error("Error al cargar productos más vendidos:", error);
@@ -22,49 +27,63 @@
     }
 
     function crearGrafica() {
-        // Si ya existe una gráfica, destrúyela antes de crear una nueva
-        if (chart) {
-            chart.destroy();
-        }
+      if (chart) {
+          chart.destroy();
+      }
 
-        const labels = productosMasVendidos.map(producto => producto.nombre);
-        const data = productosMasVendidos.map(producto => producto.total_vendido);
+      const labels = productosMasVendidos.map(producto => producto.nombre);
+      const data = productosMasVendidos.map(producto => producto.total_vendido);
 
-        chart = new Chart(chartCanvas, {
-            type: "pie",
-            data: {
-                labels: labels,
-                datasets: [
-                    {
-                        label: "Productos más vendidos",
-                        data: data,
-                        backgroundColor: [
-                            "#FF6384",
-                            "#36A2EB",
-                            "#FFCE56",
-                            "#4BC0C0",
-                            "#9966FF",
-                            "#FF9F40",
-                        ],
-                        hoverOffset: 4,
-                    },
-                ],
-            },
-            options: {
-                responsive: true,
-                plugins: {
-                    legend: {
-                        position: "top",
-                    },
-                    tooltip: {
-                        callbacks: {
-                            label: (context) => `${context.label}: ${context.raw}`,
-                        },
-                    },
-                },
-            },
-        });
-    }
+      chart = new Chart(chartCanvas, {
+          type: "pie",
+          data: {
+              labels: labels,
+              datasets: [
+                  {
+                      label: "Productos más vendidos",
+                      data: data,
+                      backgroundColor: [
+                          "#FF6384",
+                          "#36A2EB",
+                          "#FFCE56",
+                          "#4BC0C0",
+                          "#9966FF",
+                          "#FF9F40",
+                          "#8BC34A",
+                          "#CDDC39"
+                      ],
+                      hoverOffset: 4,
+                  },
+              ],
+          },
+          options: {
+              responsive: true,
+              plugins: {
+                  legend: {
+                      display: true,
+                      position: "top",
+                      labels: {
+                          boxWidth: 20, // Tamaño del cuadro de color
+                          font: {
+                              size: 12, // Tamaño de fuente
+                          },
+                          padding: 10, // Espaciado entre los elementos
+                      },
+                  },
+                  tooltip: {
+                      callbacks: {
+                          label: (context) => `${context.label}: ${context.raw}`,
+                      },
+                  },
+              },
+              layout: {
+                  padding: {
+                      top: 20,
+                  },
+              },
+          },
+      });
+  }
 
     onMount(() => {
         cargarProductosMasVendidos();
@@ -99,29 +118,33 @@
 {/if}
 
 <style>
-  h1, h2 {
-    text-align: center;
-  }
-
   canvas {
-    max-width: 400px;
+    width: 90%;
+    max-width: 400px; /* Ajustar tamaño máximo */
     margin: 1rem auto;
     display: block;
   }
 
   table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 1rem auto;
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1rem auto;
   }
 
   th, td {
-    padding: 0.8rem;
-    text-align: left;
-    border: 1px solid #ddd;
+      padding: 0.8rem;
+      text-align: left;
+      border: 1px solid #ddd;
   }
 
   th {
-    background-color: #f4f4f4;
+      background-color: #f4f4f4;
+  }
+
+  @media screen and (max-width: 600px) {
+      canvas {
+          width: 100%;
+          max-width: 100%; /* Ancho completo */
+      }
   }
 </style>
