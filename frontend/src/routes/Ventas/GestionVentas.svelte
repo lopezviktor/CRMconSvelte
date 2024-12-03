@@ -1,1 +1,0 @@
-<h1>GESTION VENTAS</h1>

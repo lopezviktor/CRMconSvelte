@@ -1,5 +1,11 @@
 const express = require('express');
-const { getEmpleados, addEmpleado, updateEmpleado, deleteEmpleado, getEmpleadoById } = require('../controllers/empleadosController');
+const { 
+    getEmpleados, 
+    addEmpleado, 
+    updateEmpleado, 
+    deleteEmpleado, 
+    getEmpleadoById 
+} = require('../controllers/empleadosController');
 const router = express.Router();
 
 router.get('/listar', getEmpleados);

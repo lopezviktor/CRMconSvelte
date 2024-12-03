@@ -20,11 +20,6 @@ const getClienteById = async (req, res) => {
     }
     try {
         const [rows] = await db.query('SELECT * FROM clientes WHERE idCliente = ?' , [id]);
-
-        if (rows.length === 0) {
-            return res.status(400).json ({message: 'Cliente no encontrado'});
-
-        }
         res.json(rows[0]); //devolvemos el unico resultado ya que solo hay un cliente con ese id
     }catch (error) {
         console.log('Error al obtener el cliente por su ID', error);
@@ -118,10 +113,56 @@ const deleteCliente = async (req, res) => {
     }
 };
 
+// Obtener clientes registrados por mes
+const clientesPorMes = async (req, res) => {
+    try {
+        const [result] = await db.query(`
+            SELECT MONTH(fechaRegistro) AS mes, COUNT(*) AS cantidad
+            FROM clientes
+            WHERE YEAR(fechaRegistro) = YEAR(CURDATE())
+            GROUP BY MONTH(fechaRegistro)
+            ORDER BY MONTH(fechaRegistro);
+        `);
+
+        console.log('Resultado de clientesPorMes:', result);
+
+        if (result.length === 0) {
+            return res.status(404).json({ message: 'No hay clientes registrados este año.' });
+        }
+        res.json(result);
+    } catch (error) {
+        console.error('Error al obtener clientes registrados por mes:', error);
+        res.status(500).json({ message: 'Error al obtener clientes registrados por mes.' });
+    }
+};
+
+// OIbtener dinero gastado de clientes ultimo año
+const dineroGastado = async (req, res) => {
+    try {
+        const [result] = await db.query(`
+            SELECT c.nombre, c.apellidos, c.amount_ultimo_anio
+            FROM clientes c
+            ORDER BY c.amount_ultimo_anio DESC
+        `);
+
+        console.log('Resultado de dineroGastado:', result);
+
+        if (result.length === 0) {
+            return res.status(404).json({ message: 'No hay datos de gasto de clientes.' });
+        }
+        res.json(result);
+    } catch (error) {
+        console.error('Error al obtener dinero gastado por los clientes:', error);
+        res.status(500).json({ message: 'Error al obtener dinero gastado por los clientes.' });
+    }
+};
+
 module.exports = {
     getClientes,
     addCliente,
     updateCliente,
     deleteCliente,
     getClienteById,
+    clientesPorMes,
+    dineroGastado
 };
