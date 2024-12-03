@@ -99,7 +99,7 @@
 {/if}
 
 <style>
-  h1, h2 {
+  h2 {
     text-align: center;
   }
 

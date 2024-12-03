@@ -18,7 +18,7 @@
       <ul class="submenu">
         <li><a href="/clientes/anadir">Añadir Cliente</a></li>
         <li><a href="/clientes/listar">Lista de Clientes</a></li>
-        <li><a href="/clientes/historial">Historial de Clientes</a></li>
+        <li><a href="/clientes/historialClientes">Historial de Clientes</a></li>
       </ul>
     </li>
     <!-- Opción Ventas -->
