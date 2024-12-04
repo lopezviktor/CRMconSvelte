@@ -2,13 +2,19 @@
     import { onMount } from "svelte";
     let clientes = [];
     let productos = [];
+    let empleados = [];
     let carrito = [];
     let idCliente = "";
+    let idEmpleado = "";
     let precioTotal = 0;
-
     let selectedProduct = ""; 
     let selectedCantidad = 1;
 
+    // Cargamos empleados desde el backend
+    async function cargarEmpleados() {
+      const res = await fetch("http://localhost:3000/api/empleados/listar");
+      empleados = await res.json();
+    }
 
     // Cargamos clientes desde el backend
     async function cargarClientes() {
@@ -20,11 +26,6 @@
     async function cargarProductos() {
         const res = await fetch("http://localhost:3000/api/productos/listar");
         productos = await res.json(); 
-    }
-
-    // Función para actualizar la cantidad con el teclado numérico
-    function actualizarCantidad(valor) {
-      selectedCantidad = valor; 
     }
 
     // Añadimos producto al carrito
@@ -65,6 +66,7 @@
         precioTotal = carrito.reduce((total, item) => total + item.subtotal, 0);
     } 
 
+    // Eliminar producto del carrito
     function eliminarProducto(index) {
         const item = carrito[index];
         const producto = productos.find((p) => p.idProducto === item.idProducto);
@@ -94,12 +96,13 @@
 
     // Enviamos la venta al back
     async function guardarVenta() {
-        if (!idCliente || carrito.length === 0) {
-            alert("Selecciona un cliente y al menos un producto.");
+        if (!idCliente || !idEmpleado ||carrito.length === 0) {
+            alert("Selecciona un cliente, un empleado y al menos un producto.");
             return;
         }
         const venta = { 
-          idCliente, 
+          idCliente,
+          idEmpleado, 
           productos: carrito.map (({ idProducto, cantidad, subtotal }) => ({ 
             idProducto, 
             cantidad, 
@@ -119,6 +122,8 @@
 
             carrito = [];
             idCliente = "";
+            idEmpleado = "";
+            selectedProduct = "";
             precioTotal = 0;
             
             await cargarProductos();
@@ -130,12 +135,25 @@
     onMount(() => {
         cargarClientes();
         cargarProductos();
+        cargarEmpleados();
     });
 </script>
 
 <h1>Añadir venta</h1>
 
 <form on:submit|preventDefault={guardarVenta}>
+  
+  <!-- Selección de empleado -->
+  <label>
+    Empleado:
+    <select bind:value={idEmpleado} required>
+      <option value="" disabled selected>Selecciona un empleado</option>
+      {#each empleados as empleado}
+        <option value={empleado.idEmpleado}>{empleado.nombre} {empleado.apellidos}</option>
+      {/each}
+    </select>
+  </label>
+  
   <!-- Selección de cliente -->
   <label>
     Cliente:
