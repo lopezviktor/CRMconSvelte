@@ -10,7 +10,7 @@
     async function cargarEmpleado() {
       cargando = true;
       try {
-        const res = await fetch(`http://localhost:3000/api/empleados/${idEmpleado}`);
+        const res = await fetch(`http://localhost:3000/api/empleados${idEmpleado}`);
         if (!res.ok) throw new Error("Error al cargar el empleado.");
         empleado = await res.json();
       } catch (error) {

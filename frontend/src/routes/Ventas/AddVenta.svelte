@@ -214,70 +214,94 @@
   <button type="submit">Guardar Venta</button>
 </form>
 <style>
-  input[type="range"] {
-  -webkit-appearance: none;
-  width: 100%;
-  height: 8px;
-  background: #ddd;
-  border-radius: 5px;
-  outline: none;
-  opacity: 0.9;
-  transition: opacity 0.2s;
+.venta-form {
+    max-width: 600px; /* Ancho máximo del formulario */
+    margin: auto; /* Centra el formulario */
+    padding: 20px; /* Relleno interno */
+    border: 1px solid #ddd; /* Borde gris claro */
+    border-radius: 8px; /* Bordes redondeados */
+    background-color: #fff; /* Fondo blanco */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Sombra suave */
+    box-sizing: border-box; /* Incluye padding y borde en el ancho total */
 }
 
-input[type="range"]:hover {
-  opacity: 1;
+label {
+    display: block; /* Cada etiqueta ocupa toda la línea */
+    margin-bottom: 10px; /* Espacio entre etiquetas */
+    font-weight: bold; /* Negrita para las etiquetas */
+    color: #555; /* Color del texto de las etiquetas */
 }
 
-input[type="range"]::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  appearance: none;
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  background: #1a73e8;
-  cursor: pointer;
-  }
+select,
+input[type="range"],
+button {
+    width: calc(100% - 20px); /* Campos ocupan todo el ancho disponible menos el padding */
+    padding: 10px; /* Relleno interno */
+    border-radius: 4px; /* Bordes redondeados */
+    margin-top: 5px; /* Espacio entre etiqueta y campo de entrada */
+    font-size: 1rem; /* Tamaño de fuente en los campos de entrada */
+    box-sizing: border-box; /* Incluye padding y borde en el ancho total */
+ }
 
-  input[type="range"]::-moz-range-thumb {
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    background: #1a73e8;
-    cursor: pointer;
-  }
+ select,
+ input[type="text"],
+ input[type="email"] {
+     border: 1px solid #ccc; /* Borde gris claro */
+ }
 
-  button {
-    background-color: #1a73e8;
-    color: white;
-    border: none;
-    padding: 0.5rem 1rem;
-    border-radius: 5px;
-    cursor: pointer;
-  }
+ input[type="range"] {
+     -webkit-appearance: none;
+     background-color: #ddd;
+     height: 8px;
+     border-radius: 5px;
+ }
 
-  button:hover {
-    background-color: #155ab2;
-  }
+ input[type="range"]::-webkit-slider-thumb {
+     -webkit-appearance: none;
+     appearance: none;
+     width: 20px;
+     height: 20px;
+     background-color: #1a73e8;
+     border-radius:50%;
+     cursor:pointer;
+ }
 
-  ul {
-    list-style: none;
-    padding: 0;
-  }
+ button {
+     background-color: #1a73e8; /* Color de fondo del botón */
+     color: white; /* Color del texto del botón */
+     border: none; /* Sin borde */
+     cursor:pointer; /* Cambia el cursor al pasar sobre el botón */
+     transition:bg-color .3s ease-in-out; /* Transición suave para el color de fondo */
+ }
 
-  ul li {
-    margin: 0.5rem 0;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
+ button:hover {
+     background-color:#155ab2; /* Color más oscuro al pasar sobre el botón */
+ }
 
-  ul li button {
-    margin-left: 10px;
-    background-color: #e74c3c;
-  }
+ ul.carrito-lista {
+     list-style:none; /* Elimina los puntos de la lista */
+     padding-left:0; /* Elimina padding por defecto */
+ }
 
-  ul li button:hover {
-    background-color: #c0392b;
-  }
+ .carrito-item {
+     display:flex; /* Usar flexbox para alinear elementos dentro de la lista */
+     justify-content: space-between; /* Espacia los elementos a los extremos */
+     align-items:center; /* Alinea verticalmente los elementos en el centro */
+     margin-bottom:.5rem; /* Espacio entre elementos de la lista */
+ }
+
+ .btn-eliminar {
+     background-color: #e74c3c; /* Color rojo para botón de eliminar */
+     color:white;
+     border:none;
+     padding:.2rem .5rem; /* Reduce padding para hacer el botón más corto pero aún usable */
+     border-radius:.25rem;
+     cursor:pointer;
+     font-size:.8rem; /* Tamaño de fuente más pequeño para que sea compacto pero legible */
+     width:auto; /* Ajustar ancho automático para que sea corto pero no demasiado pequeño*/
+ }
+
+ .btn-eliminar:hover {
+     background-color:#c0392b; /* Color más oscuro al pasar sobre el botón eliminar*/
+ }
 </style>
