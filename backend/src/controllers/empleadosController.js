@@ -98,24 +98,37 @@ const updateEmpleado = async (req, res) => {
 
 // Eliminar un empleado
 const deleteEmpleado = async (req, res) => {
-    const { id } = req.params; 
+    const { id } = req.params;
 
     if (!id) {
-        return res.status(400).json({ message: 'ID de empleado es obligatorio.' });
+        return res.status(400).json({ message: "ID del empleado es obligatorio." });
     }
 
     try {
-        const query = `DELETE FROM empleados WHERE idEmpleado = ?`;
-        const [result] = await db.query(query, [id]);
+        await connection.beginTransaction();
 
-        if (result.affectedRows === 0) {
-            return res.status(404).json({ message: 'Empleado no encontrado.' });
+        // Reasignar las ventas al empleado genérico
+        const [result] = await connection.query(
+            `UPDATE ventas SET idEmpleado = 0 WHERE idEmpleado = ?`,
+            [id]
+        );
+
+        // Eliminar al empleado
+        const [deleteResult] = await connection.query(
+            `DELETE FROM empleados WHERE idEmpleado = ?`,
+            [id]
+        );
+
+        if (deleteResult.affectedRows === 0) {
+            throw new Error("Empleado no encontrado.");
         }
-
-        res.json({ message: 'Empleado eliminado correctamente.' });
+        console.log("Petición DELETE recibida para el empleado ID:", id);
+        await connection.commit();
+        res.status(200).json({ message: "Empleado eliminado y ventas reasignadas correctamente." });
     } catch (error) {
-        console.error('Error al eliminar empleado:', error);
-        res.status(500).json({ message: 'Error al eliminar el empleado.' });
+        await connection.rollback();
+        console.error("Error al eliminar empleado:", error);
+        res.status(500).json({ message: "Error al eliminar empleado." });
     }
 };
 
