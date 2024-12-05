@@ -60,46 +60,48 @@
 </div>
 
 {#if cargando}
-<p>Cargando ventas...</p>
+  <p>Cargando ventas...</p>
 {:else}
-<table class="ventas-table">
-  <thead>
-    <tr>
-      <th>ID Venta</th>
-      <th>Cliente</th>
-      <th>Fecha</th>
-      <th>Total</th>
-      <th>Productos</th>
-      <th>Acciones</th>
-    </tr>
-  </thead>
-  <tbody>
-    {#each ventasFiltradas as venta}
+  <table>
+    <thead>
       <tr>
-        <td>{venta.idVenta}</td>
-        <td>{venta.cliente}</td>
-        <td>{new Date(venta.fecha).toLocaleDateString()}</td>
-        <td>{venta.total}€</td>
-        <td>
-          <ul class="productos-lista">
-            {#each venta.productos as producto}
-              <li>
-                {producto.cantidad} x {producto.producto} ({producto.subtotal}€)
-              </li>
-            {/each}
-          </ul>
-        </td>
-        <td class="acciones">
-          <div style="display: inline-block; text-align: center;">
-            <a href={`/ventas/editar/${venta.idVenta}`} class="btn-editar">Editar</a>
-            <button class="btn-eliminar" on:click={() => eliminarVenta(venta.idVenta)}>Eliminar</button>
-          </div>
-        </td>
+        <th>ID Venta</th>
+        <th>Cliente</th>
+        <th>Empleado</th>
+        <th>Fecha</th>
+        <th>Total</th>
+        <th>Productos</th>
+        <th>Acciones</th>
       </tr>
-    {/each}
-  </tbody>
-</table>
+    </thead>
+    <tbody>
+      {#each ventas as venta}
+        <tr>
+          <td>{venta.idVenta}</td>
+          <td>{venta.cliente}</td>
+          <td>{venta.empleado}</td>
+          <td>{new Date(venta.fecha).toLocaleDateString()}</td>
+          <td>{venta.total}€</td>
+          <td>
+            <ul>
+              {#each venta.productos as producto}
+                <li>
+                  {producto.cantidad} x {producto.producto} ({producto.subtotal}€)
+                </li>
+              {/each}
+            </ul>
+          </td>
+          <td style="text-align: center; vertical-align: middle;">
+            <div style="display: inline-block; text-align: center;">
+              <button class="btn-rojo" on:click={() => eliminarVenta(venta.idVenta)}>Eliminar</button>
+            </div>
+          </td>
+        </tr>
+      {/each}
+    </tbody>
+  </table>
 {/if}
+ 
 
 <style>
 h1 {
