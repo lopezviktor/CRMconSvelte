@@ -10,7 +10,7 @@
     let chartCanvas;
 
     async function cargarProductosMasVendidos() {
-      try {
+        try {
             const res = await fetch("http://localhost:3000/api/ventas/reportes/mas-vendidos");
             productosMasVendidos = await res.json();
 
@@ -27,63 +27,63 @@
     }
 
     function crearGrafica() {
-      if (chart) {
-          chart.destroy();
-      }
+        if (chart) {
+            chart.destroy();
+        }
 
-      const labels = productosMasVendidos.map(producto => producto.nombre);
-      const data = productosMasVendidos.map(producto => producto.total_vendido);
+        const labels = productosMasVendidos.map(producto => producto.nombre);
+        const data = productosMasVendidos.map(producto => producto.total_vendido);
 
-      chart = new Chart(chartCanvas, {
-          type: "pie",
-          data: {
-              labels: labels,
-              datasets: [
-                  {
-                      label: "Productos más vendidos",
-                      data: data,
-                      backgroundColor: [
-                          "#FF6384",
-                          "#36A2EB",
-                          "#FFCE56",
-                          "#4BC0C0",
-                          "#9966FF",
-                          "#FF9F40",
-                          "#8BC34A",
-                          "#CDDC39"
-                      ],
-                      hoverOffset: 4,
-                  },
-              ],
-          },
-          options: {
-              responsive: true,
-              plugins: {
-                  legend: {
-                      display: true,
-                      position: "top",
-                      labels: {
-                          boxWidth: 20, // Tamaño del cuadro de color
-                          font: {
-                              size: 12, // Tamaño de fuente
-                          },
-                          padding: 10, // Espaciado entre los elementos
-                      },
-                  },
-                  tooltip: {
-                      callbacks: {
-                          label: (context) => `${context.label}: ${context.raw}`,
-                      },
-                  },
-              },
-              layout: {
-                  padding: {
-                      top: 20,
-                  },
-              },
-          },
-      });
-  }
+        chart = new Chart(chartCanvas, {
+            type: "pie",
+            data: {
+                labels: labels,
+                datasets: [
+                    {
+                        label: "Productos más vendidos",
+                        data: data,
+                        backgroundColor: [
+                            "#FF6384",
+                            "#36A2EB",
+                            "#FFCE56",
+                            "#4BC0C0",
+                            "#9966FF",
+                            "#FF9F40",
+                            "#8BC34A",
+                            "#CDDC39"
+                        ],
+                        hoverOffset: 4,
+                    },
+                ],
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        display: true,
+                        position: "top",
+                        labels: {
+                            boxWidth: 20, // Tamaño del cuadro de color
+                            font: {
+                                size: 12, // Tamaño de fuente
+                            },
+                            padding: 10, // Espaciado entre los elementos
+                        },
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: (context) => `${context.label}: ${context.raw}`,
+                        },
+                    },
+                },
+                layout: {
+                    padding: {
+                        top: 20,
+                    },
+                },
+            },
+        });
+    }
 
     onMount(() => {
         cargarProductosMasVendidos();
@@ -99,7 +99,7 @@
 {#if productosMasVendidos.length === 0}
   <p>No hay datos de ventas disponibles.</p>
 {:else}
-  <table>
+  <table class="productos-table">
     <thead>
       <tr>
         <th>Producto</th>
@@ -110,7 +110,7 @@
       {#each productosMasVendidos as producto}
         <tr>
           <td>{producto.nombre}</td>
-          <td>{producto.total_vendido}</td>
+          <td>{producto.total_vendido}€</td>
         </tr>
       {/each}
     </tbody>
@@ -118,33 +118,53 @@
 {/if}
 
 <style>
-  canvas {
-    width: 90%;
-    max-width: 400px; /* Ajustar tamaño máximo */
-    margin: 1rem auto;
-    display: block;
+  h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #333; /* Color del texto */
   }
 
-  table {
+  canvas {
+      width: 90%;
+      max-width: 400px; /* Ajustar tamaño máximo */
+      margin: 1rem auto; /* Margen superior e inferior y centrado */
+      display: block;
+  }
+
+  .productos-table {
       width: 100%;
-      border-collapse: collapse;
-      margin: 1rem auto;
+      border-collapse: collapse; /* Elimina el espacio entre bordes */
+      margin-top: 20px; /* Espacio superior de la tabla */
   }
 
   th, td {
-      padding: 0.8rem;
-      text-align: left;
-      border: 1px solid #ddd;
+      padding: 0.8rem; /* Espaciado dentro de las celdas */
+      text-align: left; /* Alineación a la izquierda */
+      border-bottom: 1px solid #ddd; /* Borde inferior en las celdas */
   }
 
   th {
-      background-color: #f4f4f4;
+      background-color: #f4f4f4; /* Fondo de las cabeceras */
+      color: #333; /* Color del texto en las cabeceras */
+      font-weight: bold; /* Negrita para las cabeceras */
+  }
+
+  tr:nth-child(even) {
+      background-color: #f9f9f9; /* Fondo gris claro para filas pares */
   }
 
   @media screen and (max-width: 600px) {
       canvas {
-          width: 100%;
-          max-width: 100%; /* Ancho completo */
+          width: 100%; /* Usar todo el ancho disponible en pantallas pequeñas */
+          max-width: none; /* Sin límite de ancho */
+      }
+      
+      .productos-table {
+          font-size: .9rem; /* Reducir tamaño de fuente en pantallas pequeñas */
+      }
+      
+      th, td {
+          padding: .5rem; /* Reducir espaciado en celdas en pantallas pequeñas */
       }
   }
 </style>
