@@ -4,16 +4,27 @@ const db = require('../../db');
 const getVentas = async (req, res) => {
     try {
         const [ventasGenerales] = await db.query(`
-            SELECT v.idVenta, v.fecha, c.nombre AS cliente, SUM(dv.subtotal) AS total
+            SELECT 
+                v.idVenta, 
+                v.fecha, 
+                c.nombre AS cliente, 
+                e.nombre AS empleado, 
+                SUM(dv.subtotal) AS total
             FROM ventas v
             JOIN clientes c ON v.idCliente = c.idCliente
+            JOIN empleados e ON v.idEmpleado = e.idEmpleado
             JOIN detalles_venta dv ON v.idVenta = dv.idVenta
             GROUP BY v.idVenta
         `);
 
         // Obtener los detalles de las ventas
         const [detalles] = await db.query(`
-            SELECT dv.idVenta, dv.idProducto, p.nombre AS producto, dv.cantidad, dv.subtotal
+            SELECT 
+                dv.idVenta, 
+                dv.idProducto, 
+                p.nombre AS producto, 
+                dv.cantidad, 
+                dv.subtotal
             FROM detalles_venta dv
             JOIN productos p ON dv.idProducto = p.idProducto
         `);
@@ -41,9 +52,11 @@ const getVentaById = async (req, res) => {
                 v.idVenta, 
                 v.fecha, 
                 CONCAT(c.nombre, ' ', c.apellidos) AS cliente, 
+                e.nombre AS empleado,
                 SUM(dv.cantidad * dv.subtotal / dv.cantidad) AS total
             FROM ventas v
             JOIN clientes c ON v.idCliente = c.idCliente
+            JOIN empleados e ON v.idEmpleado = e.idEmpleado
             JOIN detalles_venta dv ON v.idVenta = dv.idVenta
             WHERE v.idVenta = ?
             GROUP BY v.idVenta
@@ -75,11 +88,12 @@ const getVentaById = async (req, res) => {
         res.status(500).json({ message: 'Error al obtener la venta.' });
     }
 };
+
 // Crear una nueva venta con detalles
 const addVenta = async (req, res) => {
-    const { idCliente, productos } = req.body;
+    const { idCliente, idEmpleado, productos } = req.body;
 
-    if (!idCliente || !productos || productos.length === 0) {
+    if (!idCliente || !idEmpleado || !productos || productos.length === 0) {
         return res.status(400).json({ message: 'Faltan datos de la venta.' });
     }
 
@@ -106,36 +120,15 @@ const addVenta = async (req, res) => {
         }
         // Insertar la venta en la tabla "ventas"
         const [ventaResult] = await connection.query(
-            'INSERT INTO ventas (idCliente, fecha) VALUES (?, NOW())',
-            [idCliente]
+            'INSERT INTO ventas (idCliente, idEmpleado, fecha) VALUES (?, ?, NOW())',
+            [idCliente, idEmpleado]
         );
         const idVenta = ventaResult.insertId;
 
-        // Validar stock y registrar los productos en la tabla "detalles_venta"
+        // Registrar los productos en la tabla "detalles_venta"
         for (const producto of productos) {
             const { idProducto, cantidad, subtotal } = producto;
 
-            if (!idProducto || !cantidad || !subtotal) {
-                throw new Error('Datos incompletos en los productos.');
-            }
-
-            // Verificar si hay suficiente stock
-            const [productoData] = await connection.query(
-                'SELECT stock FROM productos WHERE idProducto = ?',
-                [idProducto]
-            );
-
-            if (productoData.length === 0) {
-                throw new Error(`Producto con ID ${idProducto} no encontrado.`);
-            }
-
-            if (productoData[0].stock < cantidad) {
-                throw new Error(
-                    `Stock insuficiente para el producto con ID ${idProducto}.`
-                );
-            }
-
-            // Insertar en la tabla "detalles_venta"
             await connection.query(
                 'INSERT INTO detalles_venta (idVenta, idProducto, cantidad, subtotal) VALUES (?, ?, ?, ?)',
                 [idVenta, idProducto, cantidad, subtotal]
@@ -159,7 +152,7 @@ const addVenta = async (req, res) => {
     }
 };
 
-//Editar un a venta
+//Editar un a venta !!NO UTILIZADO DE MOMENTO!!
 const updateVenta = async (req, res) => {
     const { id } = req.params; // Obtenemos el ID de la venta
     const { idCliente, fecha, productos } = req.body;
