@@ -40,7 +40,6 @@
       <ul class="submenu">
         <li><a href="/empleados/anadir">Añadir Empleado</a></li>
         <li><a href="/empleados/listar">Lista de Empleados</a></li>
-        <li><a href="/empleados/turnos">Turnos</a></li>
       </ul>
     </li>
 

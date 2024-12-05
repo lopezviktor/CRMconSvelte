@@ -1,9 +1,20 @@
 {
   "dependencies": {
+    "@rollup/rollup-win32-x64-msvc": "^4.28.0",
+    "chart.js": "^4.4.7",
     "svelte-routing": "^2.13.0"
   },
   "devDependencies": {
     "rollup": "^4.27.4",
     "vite": "^5.4.11"
-  }
+  },
+  "name": "crm_svelte",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": ""
 }
