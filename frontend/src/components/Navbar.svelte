@@ -2,8 +2,6 @@
   export let isDarkMode = false;
   export let toggleTheme;
 
-  import { Link } from 'svelte-routing';
-
   // Obtener la ruta actual desde el navegador
   let currentPath = window.location.pathname;
 
@@ -14,45 +12,56 @@
 
 <nav>
   <ul>
+    <!-- Opción Home -->
+    <li class="menu-item">
+      <a href="/" class="nav-link">Home</a>
+    </li>
     <!-- Opción Clientes -->
     <li class="menu-item">
       <span class="dropdown-trigger">Clientes</span>
       <ul class="submenu">
-        <li><Link to="/clientes/anadir">Añadir Cliente</Link></li>
-        <li><Link to="/clientes/listar">Lista de Clientes</Link></li>
-        <li><Link to="/clientes/historial">Historial de Clientes</Link></li>
+        <li><a href="/clientes/anadir">Añadir Cliente</a></li>
+        <li><a href="/clientes/listar">Lista de Clientes</a></li>
+        <li><a href="/clientes/historialClientes">Historial de Clientes</a></li>
       </ul>
     </li>
     <!-- Opción Ventas -->
     <li class="menu-item">
       <span class="dropdown-trigger">Ventas</span>
       <ul class="submenu">
-        <li><Link to="/ventas/anadir">Añadir Venta</Link></li>
-        <li><Link to="/ventas/listar">Historial de Ventas</Link></li>
-        <li><Link to="/ventas/reportes">Reportes</Link></li>
+        <li><a href="/ventas/anadir">Añadir Venta</a></li>
+        <li><a href="/ventas/listar">Historial de Ventas</a></li>
+        <li><a href="/ventas/reportes/mas-vendidos">Reportes</a></li>
       </ul>
     </li>
     <!-- Opción Empleados -->
     <li class="menu-item">
       <span class="dropdown-trigger">Empleados</span>
       <ul class="submenu">
-        <li><Link to="/empleados/anadir">Añadir Empleado</Link></li>
-        <li><Link to="/empleados/listar">Lista de Empleados</Link></li>
-        <li><Link to="/empleados/turnos">Turnos</Link></li>
+        <li><a href="/empleados/anadir">Añadir Empleado</a></li>
+        <li><a href="/empleados/listar">Lista de Empleados</a></li>
       </ul>
     </li>
-    <li class="menu-item">      
+
+    <!-- Opción Productos -->
+    <li class="menu-item">
+      <a href="/productos" class="nav-link">Productos</a>
+    </li>
+
+    <!-- Botón para cambiar el tema -->
+    <li class="menu-item">
       <button on:click={toggleTheme} class="theme-toggle">
         {#if isDarkMode}
-        <img src="/images/lightMode.png" alt="sol de modo claro" class="theme-icon" id="solModoClaro"> 
-
+          <img src="/images/lightMode.png" alt="Sol de modo claro" class="theme-icon" id="solModoClaro">
         {:else}
-          <img src="/images/darkMode.png" alt="luna de modo oscuro" class="theme-icon"> 
+          <img src="/images/darkMode.png" alt="Luna de modo oscuro" class="theme-icon">
         {/if}
       </button>
     </li>
   </ul>
 </nav>
+
+<!--
 <style>
   .theme-toggle {
   background-color: transparent; /* Fondo dinámico configurado abajo */
@@ -80,3 +89,4 @@
     filter: invert(1) brightness(2);
 }
 </style>
+-->

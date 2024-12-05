@@ -9,16 +9,23 @@
 
   import AddVenta from './routes/Ventas/AddVenta.svelte';
   import Ventas from './routes/Ventas/Ventas.svelte';
-  import GestionVentas from './routes/Ventas/GestionVentas.svelte';
+  import ReportesVentas from './routes/Ventas/ReportesVentas.svelte';
 
   import AddCliente from './routes/Clientes/AddCliente.svelte';
   import Clientes from './routes/Clientes/Clientes.svelte';
   import EditarCliente from "./routes/Clientes/EditarCliente.svelte";
-  import GestionClientes from './routes/Clientes/GestionClientes.svelte';
+  import HistorialClientes from './routes/Clientes/HistorialClientes.svelte';
+  import FormCliente from './routes/Clientes/FormCliente.svelte';
+  import TerminosCliente from './routes/Clientes/TerminosCliente.svelte';
 
   import AddEmpleado from './routes/Empleados/AddEmpleado.svelte';
   import Empleados from './routes/Empleados/Empleados.svelte';
+  import EditarEmpleado from './routes/Empleados/EditarEmpleado.svelte';
   import GestionEmpleados from './routes/Empleados/GestionEmpleados.svelte';
+
+  import Productos from './routes/Productos/Productos.svelte';
+  import AddProducto from './routes/Productos/AddProducto.svelte'
+  import EditarProducto from './routes/Productos/EditarProducto.svelte';
 
   let isDarkMode = false;
 
@@ -42,7 +49,7 @@
     <!-- Ventas -->
     <Route path="/ventas/anadir" component={AddVenta} />
     <Route path="/ventas/listar" component={Ventas} />
-    <Route path="/ventas/gestionar" component={GestionVentas} />
+    <Route path="/ventas/reportes/mas-vendidos" component={ReportesVentas} />
 
     <!-- Clientes -->
     <Route path="/clientes/anadir" component={AddCliente} />
@@ -50,12 +57,26 @@
     <Route path="/clientes/editar/:id" let:params>
       <EditarCliente idCliente={params.id} />
     </Route>
-    <Route path="/clientes/gestionar" component={GestionClientes} />
+    <Route path="/clientes/historialClientes" component={HistorialClientes} />
 
     <!-- Empleados -->
     <Route path="/empleados/anadir" component={AddEmpleado} />
     <Route path="/empleados/listar" component={Empleados} />
+    <Route path="/empleados/editar/:id" let:params>
+      <EditarEmpleado idEmpleado={params.id} />
+    </Route>
     <Route path="/empleados/gestionar" component={GestionEmpleados} />
+
+    <!-- Productos -->
+    <Route path="/productos" component={Productos} />
+    <Route path="/productos/anadir" component={AddProducto} />
+    <Route path="/productos/editar/:id" let:params>
+      <EditarProducto idProducto={params.id} />
+    </Route>
+
+    <!-- Contactar -->
+    <Route path="/clientes/contacto" component={FormCliente} />
+    <Route path="/clientes/terminos" component={TerminosCliente} />
 
     <!-- 404 -->
     <Route path="*" component={NotFound} />
