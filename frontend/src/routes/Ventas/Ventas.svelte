@@ -44,7 +44,8 @@
   // Filtrar ventas según la búsqueda
   $: ventasFiltradas = ventas.filter(venta => 
       venta.cliente.toLowerCase().includes(busqueda.toLowerCase()) || 
-      venta.idVenta.toString().includes(busqueda)
+      venta.idVenta.toString().includes(busqueda) ||
+      venta.empleado.toLowerCase().includes(busqueda.toLowerCase())
   );
 </script>
 
@@ -62,7 +63,7 @@
 {#if cargando}
   <p>Cargando ventas...</p>
 {:else}
-  <table>
+  <table class="ventas-table">
     <thead>
       <tr>
         <th>ID Venta</th>
@@ -75,7 +76,7 @@
       </tr>
     </thead>
     <tbody>
-      {#each ventas as venta}
+      {#each ventasFiltradas as venta}
         <tr>
           <td>{venta.idVenta}</td>
           <td>{venta.cliente}</td>
@@ -83,7 +84,7 @@
           <td>{new Date(venta.fecha).toLocaleDateString()}</td>
           <td>{venta.total}€</td>
           <td>
-            <ul>
+            <ul class="productos-lista">
               {#each venta.productos as producto}
                 <li>
                   {producto.cantidad} x {producto.producto} ({producto.subtotal}€)
@@ -91,7 +92,7 @@
               {/each}
             </ul>
           </td>
-          <td style="text-align: center; vertical-align: middle;">
+          <td class="acciones">
             <div style="display: inline-block; text-align: center;">
               <button class="btn-rojo" on:click={() => eliminarVenta(venta.idVenta)}>Eliminar</button>
             </div>
@@ -158,26 +159,4 @@ tr:nth-child(even) {
   text-align: center; /* Centra el contenido en la celda de acciones */
 }
 
-.btn-editar,
-.btn-eliminar {
-  background-color: #1a73e8; /* Color azul para botón de editar */
-  color: white;
-  border: none;
-  padding: .3rem .5rem; /* Relleno interno del botón */
-  border-radius: .25rem; /* Bordes redondeados en el botón */
-  cursor: pointer;
-  font-size: .9rem; /* Tamaño de fuente para botones */
-}
-
-.btn-editar:hover {
-  background-color: #155ab2; /* Color más oscuro al pasar el ratón sobre editar */
-}
-
-.btn-eliminar {
-  background-color: #e74c3c; /* Color rojo para botón de eliminar */
-}
-
-.btn-eliminar:hover {
-  background-color: #c0392b; /* Color más oscuro al pasar el ratón sobre eliminar */
-}
 </style>
