@@ -119,41 +119,8 @@
 {/if}
 
 <style>
-  body {
-    background-color: #ffffff; /* Fondo blanco */
-    color: #333333; /* Texto oscuro */
-    font-family: 'Arial', sans-serif; /* Fuente estándar */
-    margin: 0;
-    padding: 20px;
-    transition: background-color 0.3s, color 0.3s; /* Transición suave entre colores */
-  }
-
   h1, h2 {
     text-align: center;
-    margin-top: 30px;
-    margin-bottom: 20px;
-    color: #333333; /* Texto oscuro */
-  }
-
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 20px 0;
-  }
-
-  th, td {
-    text-align: left;
-    padding: 10px;
-    border: 1px solid #dddddd; /* Borde gris claro */
-  }
-
-  th {
-    background-color: #f4f4f4; /* Fondo gris claro para encabezados */
-    color: #333333; /* Texto oscuro para encabezados */
-  }
-
-  tr:nth-child(even) {
-    background-color: #f9f9f9; /* Fondo gris claro para filas pares */
   }
 
   .dashboard-section {
@@ -168,7 +135,6 @@
       border-radius: 8px; /* Bordes redondeados */
       text-align: center;
       box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1); /* Sombra suave */
-      background-color: #ffffff; /* Fondo blanco para las tarjetas */
       transition: box-shadow 0.3s ease; /* Transición suave para la sombra */
   }
 

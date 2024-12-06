@@ -82,11 +82,9 @@
                   <td>{cliente.email}</td>
                   <td>{cliente.telefono}</td>
                   <td>{cliente.ciudad}</td>
-                  <td style="text-align: center; vertical-align: middle;">
-                      <div style="display: inline-block; text-align: center;">
-                          <a href={`/clientes/editar/${cliente.idCliente}`} class="btn-editar">Editar</a>
-                          <button class="btn-rojo" on:click={() => eliminarCliente(cliente.idCliente)}>Eliminar</button>
-                      </div>
+                  <td class="acciones">
+                      <a href={`/clientes/editar/${cliente.idCliente}`} class="btn-editar">Editar</a>
+                      <button class="btn-rojo" on:click={() => eliminarCliente(cliente.idCliente)}>Eliminar</button>
                   </td>
               </tr>
           {/each}
@@ -101,80 +99,36 @@
 <style>
   h1 {
     text-align: center;
-    margin-bottom: 20px;
-    color: #333; /* Color del texto */
-    font-size: 2rem; /* Tamaño del texto */
+
   }
 
   .buscador-container {
-    display: flex; /* Usa flexbox para centrar */
-    justify-content: center; /* Centra horizontalmente */
-    margin-bottom: 20px; /* Espacio inferior */
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
   }
 
   .buscador {
-    width: 100%; /* Ocupa todo el ancho */
-    max-width: 400px; /* Ancho máximo */
-    padding: 10px; /* Relleno interno */
-    border: 1px solid #ccc; /* Borde gris claro */
-    border-radius: 4px; /* Bordes redondeados */
-    font-size: 1rem; /* Tamaño de fuente */
-    box-sizing: border-box; /* Incluye padding y borde en el ancho total */
-    transition: border-color 0.3s ease; /* Transición suave para el borde */
-    outline: none; /* Elimina el contorno por defecto */
+    width: 100%;
+    max-width: 400px;
   }
 
-  .buscador:focus {
-    border-color: #1a73e8; /* Color del borde al enfocar */
-    box-shadow: 0 0 5px rgba(26, 115, 232, 0.2); /* Sombra suave al enfocar */
-  }
-
-  table {
-    width: 100%; /* Tabla ocupa todo el contenedor */
-    border-collapse: collapse; /* Elimina el espacio entre bordes */
-    margin-top: 20px; /* Espacio superior de la tabla */
-  }
-
-  th, td {
-    padding: 10px; /* Espaciado dentro de las celdas */
-    border-bottom: 1px solid #ddd; /* Borde inferior en las celdas */
-    text-align: left; /* Alineación a la izquierda */
-  }
-
-  th {
-    background-color: #f4f4f4; /* Fondo de las cabeceras */
-    color: #333; /* Color del texto en las cabeceras */
-    font-weight: bold; /* Negrita para las cabeceras */
-  }
-
-  tr:nth-child(even) {
-    background-color: #f9f9f9; /* Fondo gris claro para filas pares */
+  .acciones {
+    text-align: center;
+    vertical-align: middle;
   }
 
   .btn-editar {
-    background-color: #007bff; /* Color azul para botón de editar */
+    background-color: var(--color-primary);
     color: white;
     padding: 5px 10px;
-    border-radius: 4px;
+    border-radius: 5px;
     text-decoration: none;
     transition: background-color 0.3s ease;
   }
 
   .btn-editar:hover {
-    background-color: #0056b3; /* Color más oscuro al pasar el ratón sobre editar */
+    background-color: var(--color-primary-hover);
   }
 
-  .btn-rojo {
-    background-color: #e74c3c; /* Fondo rojo para botón de eliminar */
-    color: white;
-    border-radius: 4px;
-    border: none;
-    padding: 5px 10px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-
-  .btn-rojo:hover {
-    background-color: #c0392b; /* Fondo rojo oscuro al pasar el ratón sobre eliminar */
-  }
 </style>

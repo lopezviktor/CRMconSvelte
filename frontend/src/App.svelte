@@ -1,5 +1,6 @@
 <script>
   import { Router, Route } from 'svelte-routing';
+  import { onMount } from 'svelte';
   import './app.css';
 
   import Navbar from './components/Navbar.svelte';
@@ -29,21 +30,26 @@
 
   let isDarkMode = false;
 
-
   function toggleTheme() {
     isDarkMode = !isDarkMode;
     document.body.classList.toggle('dark-mode', isDarkMode);
     document.body.classList.toggle('light-mode', !isDarkMode);
+    localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
   }
 
+  onMount(() => {
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) {
+      isDarkMode = savedTheme === 'dark';
+      document.body.classList.toggle('dark-mode', isDarkMode);
+      document.body.classList.toggle('light-mode', !isDarkMode);
+    }
+  });
 </script>
 
 <Router>
   <Navbar {isDarkMode} {toggleTheme} />
   <main class:dark-mode={isDarkMode} class:light-mode={!isDarkMode}>
-    <Route path="/" component={Home} />
-
-    <!-- Rutas -->
     <Route path="/" component={Home} />
 
     <!-- Ventas -->
@@ -90,5 +96,19 @@
     padding: 1rem;
     min-height: calc(100vh - 10rem);
     transition: background-color 0.3s ease, color 0.3s ease;
+  }
+
+  :global(body) {
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+
+  :global(body.dark-mode) {
+    background-color: #121212;
+    color: #ffffff;
+  }
+
+  :global(body.light-mode) {
+    background-color: #ffffff;
+    color: #333333;
   }
 </style>

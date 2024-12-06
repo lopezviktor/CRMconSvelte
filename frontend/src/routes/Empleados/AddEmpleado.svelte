@@ -80,7 +80,7 @@
 
 <h2>Agregar Empleado</h2>
 
-<form on:submit|preventDefault={agregarEmpleado}>
+<form on:submit|preventDefault={agregarEmpleado} class="empleado-form">
     <label>
         Nombre:
         <input type="text" bind:value={nombre} required />
@@ -113,3 +113,28 @@
     </label>
     <button type="submit">Guardar Empleado</button>
 </form>
+
+<style>
+    h2 {
+      text-align: center;
+    }
+
+    .empleado-form {
+        max-width: 400px;
+        margin: 0 auto;
+        padding: 20px;
+        border: 1px solid var(--color-border);
+        border-radius: 8px;
+        background-color: var(--color-bg);
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    label {
+        width: 100%;
+    }
+
+    input{
+        width: 100%;
+        box-sizing: border-box;
+    }
+</style>

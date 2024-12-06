@@ -120,8 +120,6 @@
 <style>
   h2 {
       text-align: center;
-      margin-bottom: 20px;
-      color: #333; /* Color del texto */
   }
 
   canvas {
@@ -130,29 +128,7 @@
       margin: 1rem auto; /* Margen superior e inferior y centrado */
       display: block;
   }
-
-  .productos-table {
-      width: 100%;
-      border-collapse: collapse; /* Elimina el espacio entre bordes */
-      margin-top: 20px; /* Espacio superior de la tabla */
-  }
-
-  th, td {
-      padding: 0.8rem; /* Espaciado dentro de las celdas */
-      text-align: left; /* Alineación a la izquierda */
-      border-bottom: 1px solid #ddd; /* Borde inferior en las celdas */
-  }
-
-  th {
-      background-color: #f4f4f4; /* Fondo de las cabeceras */
-      color: #333; /* Color del texto en las cabeceras */
-      font-weight: bold; /* Negrita para las cabeceras */
-  }
-
-  tr:nth-child(even) {
-      background-color: #f9f9f9; /* Fondo gris claro para filas pares */
-  }
-
+  
   @media screen and (max-width: 600px) {
       canvas {
           width: 100%; /* Usar todo el ancho disponible en pantallas pequeñas */
