@@ -52,18 +52,19 @@
 <h1>Ventas</h1>
 
 <!-- Campo de búsqueda -->
-<div class="buscador">
+<div class="buscador-container">
   <input 
       type="text" 
       placeholder="Buscar por cliente o ID de venta" 
       bind:value={busqueda} 
+      class="buscador"
   />
 </div>
 
 {#if cargando}
   <p>Cargando ventas...</p>
 {:else}
-  <table class="ventas-table">
+  <table >
     <thead>
       <tr>
         <th>ID Venta</th>
@@ -107,56 +108,22 @@
 <style>
 h1 {
   text-align: center;
-  margin-bottom: 20px;
 }
 
 .buscador {
-  text-align: center; /* Centrar el campo de búsqueda */
-  margin-bottom: 20px; /* Espacio inferior */
+    width: 100%;
+    max-width: 400px;
 }
 
-.buscador input {
-  width: 80%; /* Ancho del campo de búsqueda */
-  max-width: 400px; /* Ancho máximo */
-  padding: 10px; /* Relleno interno */
-  border-radius: 4px; /* Bordes redondeados */
-  border: 1px solid #ccc; /* Borde gris claro */
-}
-
-.ventas-table {
-  width: 100%;
-  border-collapse: collapse; /* Elimina el espacio entre bordes */
-  margin-top: 20px; /* Espacio superior de la tabla */
-}
-
-th, td {
-  padding: 10px; /* Espaciado dentro de las celdas */
-  border-bottom: 1px solid #ddd; /* Borde inferior en las celdas */
-  text-align: left; /* Alineación a la izquierda */
-}
-
-th {
-  background-color: #f4f4f4; /* Fondo de las cabeceras */
-  color: #333; /* Color del texto en las cabeceras */
-  font-weight: bold; /* Negrita para las cabeceras */
-}
-
-tr:nth-child(even) {
-  background-color: #f9f9f9; /* Fondo gris claro para filas pares */
-}
-
-.productos-lista {
-  list-style-type: none; /* Elimina los puntos de la lista */
-  padding-left: 0; /* Elimina padding por defecto */
-  margin: 0; /* Elimina margen por defecto */
-}
-
-.productos-lista li {
-  margin-bottom: 5px; /* Espacio entre elementos de la lista */
-}
+.buscador-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
 
 .acciones {
   text-align: center; /* Centra el contenido en la celda de acciones */
+  vertical-align: middle;
 }
 
 </style>
