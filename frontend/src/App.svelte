@@ -74,7 +74,7 @@
     <Route path="/empleados/gestionar" component={GestionEmpleados} />
 
     <!-- Productos -->
-    <Route path="/productos" component={Productos} />
+    <Route path="/productos/listar" component={Productos} />
     <Route path="/productos/anadir" component={AddProducto} />
     <Route path="/productos/editar/:id" let:params>
       <EditarProducto idProducto={params.id} />

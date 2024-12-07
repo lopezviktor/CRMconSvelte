@@ -63,9 +63,6 @@
       bind:value={busqueda}
       class="buscador"
     />
-    <button class="btn-add" on:click={() => navigate("/productos/anadir")}
-      >Añadir Producto</button
-    >
   </div>
 
   {#if cargando}
