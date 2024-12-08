@@ -48,7 +48,7 @@
 {#if cargando}
   <p>Cargando datos del cliente...</p>
 {:else}
-  <h2>Editar Cliente</h2>
+  <h1>Editar Cliente</h1>
 
   <form on:submit|preventDefault={actualizarCliente} class="cliente-form">
       <label>
@@ -76,7 +76,7 @@
 {/if}
 
 <style>
-  h2 {
+  h1 {
     text-align: center;
     
   }
