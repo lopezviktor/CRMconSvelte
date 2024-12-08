@@ -34,6 +34,7 @@
         <li><a href="/ventas/reportes/mas-vendidos">Reportes</a></li>
       </ul>
     </li>
+    
     <!-- Opción Empleados -->
     <li class="menu-item">
       <span class="dropdown-trigger">Empleados</span>
@@ -45,7 +46,11 @@
 
     <!-- Opción Productos -->
     <li class="menu-item">
-      <a href="/productos" class="nav-link">Productos</a>
+      <span class="dropdown-trigger">Productos</span>
+      <ul class="submenu">
+        <li><a href="/productos/anadir">Añadir producto</a></li>
+        <li><a href="/productos/listar">Lista de productos</a></li>
+      </ul>
     </li>
 
     <!-- Botón para cambiar el tema -->
@@ -60,33 +65,3 @@
     </li>
   </ul>
 </nav>
-
-<!--
-<style>
-  .theme-toggle {
-  background-color: transparent; /* Fondo dinámico configurado abajo */
-  border: none;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0;
-  border-radius: 50%;
-  transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-/* Ícono del tema */
-.theme-icon {
-  height: 24px;
-  width: 24px;
-  transition: filter 0.3s ease, background-color 0.3s ease;
-}
-/* Hover para ambos modos */
-.theme-toggle:hover {
-  transform: scale(1.1);
-}
-#solModoClaro {
-    filter: invert(1) brightness(2);
-}
-</style>
--->
